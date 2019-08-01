@@ -6,6 +6,9 @@ dependencies {
     api dependencies.kotlin
     api dependencies.coroutines
     api dependencies.room_annotations
+
+    def common_testing_dependencies = rootProject.ext.common_dependencies
+    testApi common_testing_dependencies.junit
 }
 
 sourceCompatibility = "8"
