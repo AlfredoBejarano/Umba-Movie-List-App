@@ -1,2 +1,2 @@
-include ':app', ':core', ':remote', ':local'
+include ':app', ':core', ':remote', ':local', ':repository'
 rootProject.name='MoviesList'
