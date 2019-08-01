@@ -1,8 +1,14 @@
 apply plugin: 'java-library'
+apply plugin: 'kotlin'
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    def dependencies = rootProject.ext.remote_dependencies
+    implementation dependencies.retrofit_2
+    implementation dependencies.retrofit_gson_converter
+    implementation dependencies.ok_http_logging_interceptor
+
+    implementation project(path: ':core')
 }
 
-sourceCompatibility = "7"
-targetCompatibility = "7"
+sourceCompatibility = "8"
+targetCompatibility = "8"
