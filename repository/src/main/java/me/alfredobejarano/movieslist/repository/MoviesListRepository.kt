@@ -32,7 +32,9 @@ class MoviesListRepository(
         if (cachesLifeManager.listCacheIsValid(type)) {
             getMoviesListFromLocal(type)
         } else {
-            getMovieListFromRemote(type)
+            getMovieListFromRemote(type).also {
+                cachesLifeManager.generateListCache(type)
+            }
         }
 
     /**
