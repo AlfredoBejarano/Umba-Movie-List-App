@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="movie"
+            type="me.alfredobejarano.movieslist.core.Movie" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/material_design_image_list_padding"
+        tools:layout_height="@dimen/image_list_movie_size"
+        tools:layout_width="@dimen/image_list_movie_size">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/match_constraints"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/detailsGuideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintGuide_percent="0.58"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/movieTitleGroup"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/match_constraints"
+            android:alpha="0.5"
+            android:background="?android:colorPrimary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/detailsGuideline"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <ProgressBar
+            android:id="@+id/ratingProgressBar"
+            android:layout_width="@dimen/movie_list_rating_progress_bar_size"
+            android:layout_height="@dimen/movie_list_rating_progress_bar_size"
+            android:indeterminate="false"
+            android:max="100"
+            app:layout_constraintBottom_toBottomOf="@id/movieTitleGroup"
+            app:layout_constraintStart_toStartOf="@id/movieTitleGroup"
+            app:layout_constraintTop_toTopOf="@id/movieTitleGroup"
+            tools:progress="80" />
+
+        <TextView
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="@dimen/match_constraints"
+            android:layout_height="@dimen/match_constraints"
+            android:gravity="center|center_vertical"
+            android:textSize="@dimen/movie_list_rating_text_size"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/ratingProgressBar"
+            app:layout_constraintEnd_toEndOf="@id/ratingProgressBar"
+            app:layout_constraintStart_toStartOf="@id/ratingProgressBar"
+            app:layout_constraintTop_toTopOf="@id/ratingProgressBar"
+            tools:text="100%" />
+
+        <TextView
+            android:layout_width="@dimen/match_constraints"
+            android:layout_height="@dimen/match_constraints"
+            android:gravity="center"
+            android:text="@{String.format(@string/movie_list_title, movie.title, movie.releaseDate)}"
+            android:textSize="@dimen/movie_list_title_text_size"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/movieTitleGroup"
+            app:layout_constraintStart_toEndOf="@id/ratingProgressBar"
+            app:layout_constraintTop_toTopOf="@id/movieTitleGroup"
+            tools:text="My awesome movie (July 19, 2019)" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

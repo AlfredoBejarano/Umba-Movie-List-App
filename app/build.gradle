@@ -26,6 +26,7 @@ android {
 
 dependencies {
     def dependencies = rootProject.ext.app_dependencies
+    implementation dependencies.fresco
     implementation dependencies.core_ktx
     implementation dependencies.app_compat
     implementation dependencies.recycler_view
