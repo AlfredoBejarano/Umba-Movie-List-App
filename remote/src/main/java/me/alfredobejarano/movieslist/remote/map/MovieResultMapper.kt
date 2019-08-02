@@ -8,7 +8,6 @@ import java.util.Locale
 
 /**
  * Created by alfredo on 2019-08-02.
- * Copyright © 2019 GROW. All rights reserved.
  */
 class MovieResultMapper : Mapper<MovieResult, Movie> {
     companion object {

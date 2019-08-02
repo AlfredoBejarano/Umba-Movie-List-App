@@ -11,7 +11,6 @@ import me.alfredobejarano.movieslist.utils.replaceFragment
 
 /**
  * Created by alfredo on 2019-08-02.
- * Copyright © 2019 GROW. All rights reserved.
  */
 class MovieListHubFragment : Fragment() {
     private lateinit var dataBinding: FragmentMovieListHubBinding

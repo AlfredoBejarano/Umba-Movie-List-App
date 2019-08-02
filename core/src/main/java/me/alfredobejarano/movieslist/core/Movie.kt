@@ -6,7 +6,6 @@ import androidx.room.PrimaryKey
 
 /**
  * Created by alfredo on 2019-08-02.
- * Copyright © 2019 GROW. All rights reserved.
  */
 @Entity(tableName = "movies")
 data class Movie(
