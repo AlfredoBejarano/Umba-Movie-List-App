@@ -5,14 +5,21 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import me.alfredobejarano.local.dao.MovieDao
+import me.alfredobejarano.local.dao.MovieListIndexDao
+import me.alfredobejarano.local.entity.MovieListIndex
 import me.alfredobejarano.movieslist.core.Movie
 
 /**
  * Created by alfredo on 2019-08-02.
  */
-@Database(entities = [Movie::class], version = BuildConfig.VERSION_CODE, exportSchema = false)
+@Database(
+    entities = [Movie::class, MovieListIndex::class],
+    version = BuildConfig.VERSION_CODE,
+    exportSchema = false
+)
 abstract class AppDatabase : RoomDatabase() {
-    abstract fun provideAppDatabaseDao(): MovieDao
+    abstract fun provideMovieDao(): MovieDao
+    abstract fun provideMovieListIndexDao(): MovieListIndexDao
 
     companion object {
         private var INSTANCE: AppDatabase? = null
