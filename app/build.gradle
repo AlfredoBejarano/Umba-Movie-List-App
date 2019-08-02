@@ -4,6 +4,8 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: 'kotlin-kapt'
+
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.0"
@@ -33,9 +35,12 @@ dependencies {
     implementation dependencies.nav_fragment
     implementation dependencies.recycler_view
     implementation dependencies.view_model_ktx
+    kapt dependencies.dagger_android_processor
+    implementation dependencies.dagger_android
     implementation dependencies.material_version
     implementation dependencies.constraint_layout
     implementation dependencies.life_cycle_extensions
+    implementation dependencies.dagger_android_support
 
 
     def common_dependencies = rootProject.ext.common_dependencies
@@ -43,5 +48,8 @@ dependencies {
     androidTestImplementation common_dependencies.espresso_core
 
     implementation project(path: ':core')
+    implementation project(path: ':local')
     implementation project(path: ':domain')
+    implementation project(path: ':remote')
+    implementation project(path: ':repository')
 }
