@@ -1,4 +1,4 @@
-package me.alfredobejarano.movieslist.movielist
+package me.alfredobejarano.movieslist.movielist.base
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil

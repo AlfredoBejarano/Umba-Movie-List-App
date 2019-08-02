@@ -1,4 +1,4 @@
-package me.alfredobejarano.movieslist.movielist
+package me.alfredobejarano.movieslist.movielist.base
 
 import android.os.Bundle
 import android.util.Log
@@ -60,7 +60,8 @@ abstract class MovieListFragment : Fragment() {
             recyclerView.adapter?.let { adapter ->
                 (adapter as? MovieListAdapter)?.updateList(list)
             } ?: run {
-                recyclerView.adapter = MovieListAdapter(list)
+                recyclerView.adapter =
+                    MovieListAdapter(list)
             }
         }
     }

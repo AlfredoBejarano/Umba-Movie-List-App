@@ -1,4 +1,4 @@
-package me.alfredobejarano.movieslist.movielist
+package me.alfredobejarano.movieslist.movielist.base
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.launchInIOForLiveData
