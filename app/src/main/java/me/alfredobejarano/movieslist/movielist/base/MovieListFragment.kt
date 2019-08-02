@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import me.alfredobejarano.movieslist.core.Movie
 import me.alfredobejarano.movieslist.core.MovieListType
 import me.alfredobejarano.movieslist.core.Result
+import me.alfredobejarano.movieslist.di.ViewModelFactory
 
 /**
  * Base class for a fragment that displays a list of movies.
@@ -24,6 +25,7 @@ import me.alfredobejarano.movieslist.core.Result
  */
 abstract class MovieListFragment : Fragment() {
     abstract val listType: MovieListType
+    private lateinit var factory: ViewModelFactory
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewModel: MovieListViewModel
 
@@ -34,7 +36,7 @@ abstract class MovieListFragment : Fragment() {
     ) = RecyclerView(requireContext()).apply {
         layoutManager = GridLayoutManager(context, 3)
         viewModel =
-            ViewModelProviders.of(this@MovieListFragment)[MovieListViewModel::class.java]
+            ViewModelProviders.of(this@MovieListFragment, factory)[MovieListViewModel::class.java]
     }.also {
         recyclerView = it
     }
