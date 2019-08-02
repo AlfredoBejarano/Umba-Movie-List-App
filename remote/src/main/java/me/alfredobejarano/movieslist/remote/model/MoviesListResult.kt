@@ -5,7 +5,6 @@ import com.google.gson.annotations.SerializedName
 
 /**
  * Created by alfredo on 2019-08-02.
- * Copyright © 2019 GROW. All rights reserved.
  */
 data class MoviesListResult(
     @Expose
