@@ -5,7 +5,6 @@ import com.facebook.drawee.view.SimpleDraweeView
 
 /**
  * Created by alfredo on 2019-08-02.
- * Copyright © 2019 GROW. All rights reserved.
  */
 abstract class BindingAdapters {
     companion object {
