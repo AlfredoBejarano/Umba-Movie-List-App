@@ -4,9 +4,13 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
+import me.alfredobejarano.movieslist.core.Movie
 import me.alfredobejarano.movieslist.remote.Properties
 import me.alfredobejarano.movieslist.remote.TheMoviesDBApiAuthInterceptor
 import me.alfredobejarano.movieslist.remote.TheMoviesDBApiService
+import me.alfredobejarano.movieslist.remote.map.Mapper
+import me.alfredobejarano.movieslist.remote.map.MovieResultMapper
+import me.alfredobejarano.movieslist.remote.model.MovieResult
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -47,4 +51,7 @@ class RemoteModule {
     @Singleton
     fun provideTheMoviesDBApiService(): TheMoviesDBApiService =
         retrofit.create(TheMoviesDBApiService::class.java)
+
+    @Provides
+    fun provideMovieResultMapper(): Mapper<MovieResult, Movie> = MovieResultMapper()
 }
