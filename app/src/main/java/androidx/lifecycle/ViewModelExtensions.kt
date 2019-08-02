@@ -4,7 +4,9 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
+import kotlinx.coroutines.launch
 import me.alfredobejarano.movieslist.BuildConfig
+import me.alfredobejarano.movieslist.core.Result
 import java.io.Closeable
 import kotlin.coroutines.CoroutineContext
 
@@ -26,6 +28,30 @@ val ViewModel.ioViewModelScope: CoroutineScope
             safeScope
         } ?: run {
             setTagIfAbsent(IO_JOB_KEY, CloseableCoroutineScope(SupervisorJob() + Dispatchers.IO))
+        }
+    }
+
+/**
+ * Returns a [LiveData] that reports the execution of a ViewModel closable coroutine.
+ * The given block of code is executed in [Dispatchers.IO]
+ */
+fun <T> ViewModel.launchInIOForLiveData(block: suspend () -> Result<out T>): LiveData<Result<out T>> =
+    MediatorLiveData<Result<out T>>().apply {
+        value = Result.loading()
+        ioViewModelScope.launch {
+            postValue(block())
+        }
+    }
+
+/**
+ * Returns a [LiveData] that reports the execution of a ViewModel closable coroutine.
+ * The given block of code is executed in [Dispatchers.Main]
+ */
+fun <T> ViewModel.launchInMainForLiveData(block: suspend () -> Result<out T>): LiveData<Result<out T>> =
+    MediatorLiveData<Result<out T>>().apply {
+        value = Result.loading()
+        viewModelScope.launch {
+            value = block()
         }
     }
 
