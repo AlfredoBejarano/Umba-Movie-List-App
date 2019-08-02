@@ -27,6 +27,7 @@ dependencies {
     def dependencies = rootProject.ext.app_dependencies
     implementation dependencies.core_ktx
     implementation dependencies.app_compat
+    implementation dependencies.recycler_view
     implementation dependencies.view_model_ktx
     implementation dependencies.life_cycle_extensions
 
