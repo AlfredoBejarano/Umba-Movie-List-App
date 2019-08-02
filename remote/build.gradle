@@ -7,7 +7,7 @@ dependencies {
     implementation dependencies.retrofit_gson_converter
     implementation dependencies.ok_http_logging_interceptor
 
-    implementation project(path: ':core')
+    implementation project(':core')
 }
 
 sourceCompatibility = "8"

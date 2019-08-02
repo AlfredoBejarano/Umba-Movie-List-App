@@ -47,9 +47,9 @@ dependencies {
     androidTestImplementation common_dependencies.test_runner
     androidTestImplementation common_dependencies.espresso_core
 
-    implementation project(path: ':core')
-    implementation project(path: ':local')
-    implementation project(path: ':domain')
-    implementation project(path: ':remote')
-    implementation project(path: ':repository')
+    implementation project(':core')
+    implementation project(':local')
+    implementation project(':domain')
+    implementation project(':remote')
+    implementation project(':repository')
 }

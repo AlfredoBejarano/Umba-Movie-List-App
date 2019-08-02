@@ -36,5 +36,5 @@ dependencies {
     androidTestImplementation common_dependencies.test_runner
     androidTestImplementation common_dependencies.espresso_core
 
-    implementation project(path: ':core')
+    implementation project(':core')
 }
