@@ -8,11 +8,12 @@ import me.alfredobejarano.movieslist.core.MovieListType
 import me.alfredobejarano.movieslist.remote.TheMoviesDBApiService
 import me.alfredobejarano.movieslist.remote.map.Mapper
 import me.alfredobejarano.movieslist.remote.model.MovieResult
+import javax.inject.Inject
 
 /**
  * Created by alfredo on 2019-08-02.
  */
-class MoviesListRepository(
+class MoviesListRepository @Inject constructor(
     private val movieDaoDataSource: MovieDao,
     private val mapper: Mapper<MovieResult, Movie>,
     private val cachesLifeManager: CachesLifeManager,
