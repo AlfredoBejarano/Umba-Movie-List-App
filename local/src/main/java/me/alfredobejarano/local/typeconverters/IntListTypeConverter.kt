@@ -7,7 +7,8 @@ import androidx.room.TypeConverter
  */
 class IntListTypeConverter {
     companion object {
-        @TypeConverter()
+        @JvmStatic
+        @TypeConverter
         fun fromListToString(list: List<Int>) = StringBuilder().apply {
             when (list.size) {
                 0 -> append("")
@@ -21,7 +22,8 @@ class IntListTypeConverter {
             }
         }.toString()
 
+        @JvmStatic
         @TypeConverter
-        fun fromStringToList(movies: String) = movies.split(",")
+        fun fromStringToList(movies: String) = movies.split(",").map { it.toInt() }
     }
 }

@@ -4,9 +4,11 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import me.alfredobejarano.local.dao.MovieDao
 import me.alfredobejarano.local.dao.MovieListIndexDao
 import me.alfredobejarano.local.entity.MovieListIndex
+import me.alfredobejarano.local.typeconverters.IntListTypeConverter
 import me.alfredobejarano.movieslist.core.Movie
 
 /**
@@ -17,6 +19,7 @@ import me.alfredobejarano.movieslist.core.Movie
     version = BuildConfig.VERSION_CODE,
     exportSchema = false
 )
+@TypeConverters(IntListTypeConverter::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun provideMovieDao(): MovieDao
     abstract fun provideMovieListIndexDao(): MovieListIndexDao
