@@ -30,6 +30,7 @@ dependencies {
     implementation dependencies.app_compat
     implementation dependencies.recycler_view
     implementation dependencies.view_model_ktx
+    implementation dependencies.constraint_layout
     implementation dependencies.life_cycle_extensions
 
 
