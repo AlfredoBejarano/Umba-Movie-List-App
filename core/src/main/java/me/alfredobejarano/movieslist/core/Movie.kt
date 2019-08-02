@@ -1,0 +1,20 @@
+package me.alfredobejarano.movieslist.core
+
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+/**
+ * Created by alfredo on 2019-08-02.
+ * Copyright © 2019 GROW. All rights reserved.
+ */
+@Entity(tableName = "movies")
+data class Movie(
+    @ColumnInfo(name = "pk")
+    @PrimaryKey(autoGenerate = false)
+    val id: Int,
+    val rating: Int,
+    val title: String,
+    val posterURL: String,
+    val releaseDate: String
+)
