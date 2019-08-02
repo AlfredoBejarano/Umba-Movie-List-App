@@ -1,4 +1,4 @@
-package me.alfredobejarano.movieslist.remote.model
+package me.alfredobejarano.movieslist.remote.map
 
 /**
  * Interface that defines a :remote module model that can transform into a :core module model.
