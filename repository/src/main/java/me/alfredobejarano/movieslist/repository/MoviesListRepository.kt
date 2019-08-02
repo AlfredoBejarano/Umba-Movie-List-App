@@ -28,7 +28,7 @@ class MoviesListRepository(
      *
      * @see MovieListType
      */
-    suspend infix fun getMoviesList(type: MovieListType) =
+    suspend infix fun getMoviesListBy(type: MovieListType) =
         if (cachesLifeManager.listCacheIsValid(type)) {
             getMoviesListFromLocal(type)
         } else {
