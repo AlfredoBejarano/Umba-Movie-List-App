@@ -10,10 +10,12 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import dagger.android.support.AndroidSupportInjection
 import me.alfredobejarano.movieslist.core.Movie
 import me.alfredobejarano.movieslist.core.MovieListType
 import me.alfredobejarano.movieslist.core.Result
 import me.alfredobejarano.movieslist.di.ViewModelFactory
+import javax.inject.Inject
 
 /**
  * Base class for a fragment that displays a list of movies.
@@ -24,8 +26,9 @@ import me.alfredobejarano.movieslist.di.ViewModelFactory
  * Created by alfredo on 2019-08-02.
  */
 abstract class MovieListFragment : Fragment() {
+    @Inject
+    lateinit var factory: ViewModelFactory
     abstract val listType: MovieListType
-    private lateinit var factory: ViewModelFactory
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewModel: MovieListViewModel
 
@@ -34,6 +37,7 @@ abstract class MovieListFragment : Fragment() {
         container: ViewGroup?,
         savedState: Bundle?
     ) = RecyclerView(requireContext()).apply {
+        AndroidSupportInjection.inject(this@MovieListFragment)
         layoutManager = GridLayoutManager(context, 3)
         viewModel =
             ViewModelProviders.of(this@MovieListFragment, factory)[MovieListViewModel::class.java]
