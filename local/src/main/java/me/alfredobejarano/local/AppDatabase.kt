@@ -34,7 +34,7 @@ abstract class AppDatabase : RoomDatabase() {
         private fun createInstance(ctx: Context) =
             Room.databaseBuilder(
                 ctx, AppDatabase::class.java,
-                "${BuildConfig.LIBRARY_PACKAGE_NAME}.database"
+                "${BuildConfig.APPLICATION_ID}.database"
             ).fallbackToDestructiveMigration().build()
     }
 }
