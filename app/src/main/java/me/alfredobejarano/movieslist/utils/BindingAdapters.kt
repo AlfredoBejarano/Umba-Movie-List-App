@@ -1,6 +1,6 @@
 package me.alfredobejarano.movieslist.utils
 
-import android.databinding.BindingAdapter
+import androidx.databinding.BindingAdapter
 import com.facebook.drawee.view.SimpleDraweeView
 
 /**

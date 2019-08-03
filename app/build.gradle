@@ -24,10 +24,16 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
     def dependencies = rootProject.ext.app_dependencies
+    kapt dependencies.dagger_compiler
     implementation dependencies.fresco
     implementation dependencies.nav_ui
     implementation dependencies.core_ktx
