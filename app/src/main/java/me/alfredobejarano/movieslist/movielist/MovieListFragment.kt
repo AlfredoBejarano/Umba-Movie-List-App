@@ -55,9 +55,7 @@ class MovieListFragment : Fragment() {
     }
 
     private fun setupRecyclerView(recyclerView: RecyclerView) = recyclerView.apply {
-        layoutManager = LinearLayoutManager(context).apply {
-            orientation = HORIZONTAL
-        }
+        layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
     }
 
     private fun fetchMovieList(listType: MovieListType) =

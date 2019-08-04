@@ -12,7 +12,7 @@ data class Movie(
     @ColumnInfo(name = "pk")
     @PrimaryKey(autoGenerate = false)
     val id: Int,
-    val rating: Int,
+    val rating: String,
     val title: String,
     val posterURL: String,
     val releaseDate: String

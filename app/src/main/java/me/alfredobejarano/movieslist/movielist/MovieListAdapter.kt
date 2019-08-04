@@ -1,5 +1,6 @@
 package me.alfredobejarano.movieslist.movielist
 
+import android.util.Log
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -25,6 +26,9 @@ internal class MovieListAdapter(private var movies: List<Movie>) :
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) = holder.binding.run {
         movie = movies[position]
         executePendingBindings()
+        root.setOnClickListener {
+            Log.d("MOVIE", movie?.id?.toString() ?: "")
+        }
     }
 
     fun updateList(newMovieList: List<Movie>) {

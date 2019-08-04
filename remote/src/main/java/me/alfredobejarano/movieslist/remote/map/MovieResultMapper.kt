@@ -27,7 +27,7 @@ class MovieResultMapper(private val baseImageURL: String) : Mapper<MovieResult, 
      * The vote average value comes in a double that scale spans
      * from 0.0 to 10.0
      */
-    private fun getRatingPercentage(voteAverage: Double?) = (voteAverage ?: 0.0 * 100).toInt()
+    private fun getRatingPercentage(voteAverage: Double?) = "${((voteAverage?.times(100.0) ?: 0.0) / 10.0).toInt()}%"
 
     /**
      * Parses the remote date format into a human-readable value.
@@ -36,12 +36,12 @@ class MovieResultMapper(private val baseImageURL: String) : Mapper<MovieResult, 
         val uiFormatter = SimpleDateFormat(RELEASE_DATE_UI_FORMAT, Locale.getDefault())
 
         return try {
-            uiFormatter.format(Date())
-        } catch (e: Exception) {
             val date = SimpleDateFormat(RELEASE_DATE_REMOTE_FORMAT, Locale.getDefault())
                 .parse(releaseDate ?: "2000-01-01") ?: Date()
 
             uiFormatter.format(date)
+        } catch (e: Exception) {
+            uiFormatter.format(Date())
         }
     }
 }
