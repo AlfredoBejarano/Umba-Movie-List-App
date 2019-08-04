@@ -35,7 +35,7 @@ class CachesLifeManager constructor(app: Application) {
     private fun isCacheValid(key: String): Boolean {
         val currentDate = getCurrentDate()
         val lastFetch = preferences.getLong(key, currentDate)
-        return lastFetch >= currentDate
+        return lastFetch > currentDate
     }
 
     private fun generateCache(key: String = "", lifeTime: Long = 0L) = preferences.edit().apply {
