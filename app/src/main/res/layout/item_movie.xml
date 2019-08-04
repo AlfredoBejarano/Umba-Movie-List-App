@@ -24,6 +24,8 @@
             posterURL="@{movie.posterURL}"
             android:layout_width="@dimen/item_movie_poster_width"
             android:layout_height="@dimen/match_constraints"
+            app:viewAspectRatio="1"
+            app:actualImageScaleType="fitXY"
             android:layout_margin="@dimen/item_movie_poster_corner_radius"
             android:adjustViewBounds="true"
             android:elevation="@dimen/item_movie_posteR_elevation"
