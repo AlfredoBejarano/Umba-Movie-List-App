@@ -10,7 +10,7 @@ import java.util.Locale
  *
  * Created by alfredo on 2019-08-02.
  */
-class TheMoviesDBApiAuthInterceptor : Interceptor {
+class TheMoviesDBApiAuthInterceptor(private val apiKey: String) : Interceptor {
     override fun intercept(chain: Interceptor.Chain) = chain.run {
         proceed(request()).newBuilder().apply { buildRequest(request()) }.build()
     }
@@ -20,9 +20,9 @@ class TheMoviesDBApiAuthInterceptor : Interceptor {
 
     private fun addQueryParamsToURL(request: Request) = request.url.newBuilder().apply {
         val deviceRegion = getLanguageAndRegion()
+        addQueryParameter("api_key", apiKey)
         addQueryParameter("language", deviceRegion.first)
         addQueryParameter("region", deviceRegion.second)
-        addQueryParameter("api_key", Properties.THE_MOVIE_DB_API_KEY)
     }.build()
 
     /**
