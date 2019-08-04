@@ -21,7 +21,7 @@
             android:layout_width="@dimen/match_constraints"
             android:layout_height="wrap_content"
             android:text="@string/menu_upcoming"
-            android:drawableStart="@drawable/ic_upcoming_white_24dp"
+            android:drawableStart="@drawable/ic_upcoming_text_color_primary_24dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
@@ -32,7 +32,7 @@
             android:layout_width="@dimen/match_constraints"
             android:layout_height="wrap_content"
             android:text="@string/menu_popular"
-            android:drawableStart="@drawable/ic_popular_white_24dp"
+            android:drawableStart="@drawable/ic_popular_text_color_primary_24dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/popularGuideline"/>
@@ -43,14 +43,14 @@
             android:layout_width="@dimen/match_constraints"
             android:layout_height="wrap_content"
             android:text="@string/menu_top_rated"
-            android:drawableStart="@drawable/ic_top_rated_white_24dp"
+            android:drawableStart="@drawable/ic_top_rated_text_color_primary_24dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/topRatedGuideline"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/upcomingMovieList"
-            android:layout_margin="8dp"
+            android:layout_margin="@dimen/fragment_movie_list_movie_list_margin"
             tools:listitem="@layout/item_movie"
             android:layout_width="@dimen/match_constraints"
             android:layout_height="@dimen/match_constraints"
@@ -61,7 +61,7 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/popularMovieList"
-            android:layout_margin="8dp"
+            android:layout_margin="@dimen/fragment_movie_list_movie_list_margin"
             tools:listitem="@layout/item_movie"
             android:layout_width="@dimen/match_constraints"
             android:layout_height="@dimen/match_constraints"
@@ -72,7 +72,7 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/topRatedMovieList"
-            android:layout_margin="8dp"
+            android:layout_margin="@dimen/fragment_movie_list_movie_list_margin"
             tools:listitem="@layout/item_movie"
             android:layout_width="@dimen/match_constraints"
             android:layout_height="@dimen/match_constraints"

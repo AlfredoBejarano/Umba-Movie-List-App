@@ -7,4 +7,6 @@
     <dimen name="movie_list_rating_text_size">12sp</dimen>
     <dimen name="movie_list_rating_progress_bar_size">40dp</dimen>
     <dimen name="item_movie_poster_corner_radius">8dp</dimen>
+    <dimen name="fragment_movie_list_movie_list_margin">8dp</dimen>
+    <dimen name="item_movie_text_margin">4dp</dimen>
 </resources>
