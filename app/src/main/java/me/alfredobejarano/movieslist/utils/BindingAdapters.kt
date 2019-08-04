@@ -1,8 +1,7 @@
 package me.alfredobejarano.movieslist.utils
 
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.net.Uri
+import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import com.facebook.drawee.view.SimpleDraweeView
 import com.facebook.imagepipeline.request.ImageRequestBuilder
@@ -16,7 +15,10 @@ abstract class BindingAdapters {
         @JvmStatic
         @BindingAdapter("posterURL")
         fun setPosterURL(simpleDraweeView: SimpleDraweeView, url: String) {
-            simpleDraweeView.hierarchy.setPlaceholderImage(ColorDrawable(Color.parseColor("#2da8ff")))
+            simpleDraweeView.hierarchy.setPlaceholderImage(
+                ContextCompat.getDrawable(simpleDraweeView.context, R.drawable.shape_movie_placeholder)
+            )
+
             val imageRequest = ImageRequestBuilder.newBuilderWithSource(Uri.parse(url)).build()
             simpleDraweeView.setImageRequest(imageRequest)
         }
