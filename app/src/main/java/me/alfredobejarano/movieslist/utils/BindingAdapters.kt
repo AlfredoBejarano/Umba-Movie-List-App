@@ -1,5 +1,6 @@
 package me.alfredobejarano.movieslist.utils
 
+import android.net.Uri
 import androidx.databinding.BindingAdapter
 import com.facebook.drawee.view.SimpleDraweeView
 
@@ -11,6 +12,6 @@ abstract class BindingAdapters {
         @JvmStatic
         @BindingAdapter("posterURL")
         fun setPosterURL(simpleDraweeView: SimpleDraweeView, url: String) =
-            simpleDraweeView.setImageURI(url)
+            simpleDraweeView.setImageURI(Uri.parse(url))
     }
 }

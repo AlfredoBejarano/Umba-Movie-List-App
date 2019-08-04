@@ -21,7 +21,12 @@ import javax.inject.Singleton
  * Created by alfredo on 2019-08-02.
  */
 @Module
-class RemoteModule(private val isDebug: Boolean, private val apiKey: String, private val baseURL: String) {
+class RemoteModule(
+    private val isDebug: Boolean,
+    private val apiKey: String,
+    private val baseURL: String,
+    private val baseImageURL: String
+) {
     private val authInterceptor by lazy { TheMoviesDBApiAuthInterceptor(apiKey) }
 
     private val gson: Gson by lazy { GsonBuilder().excludeFieldsWithoutExposeAnnotation().create() }
@@ -37,8 +42,8 @@ class RemoteModule(private val isDebug: Boolean, private val apiKey: String, pri
     }
     private val okHttpClient by lazy {
         OkHttpClient.Builder()
-            .addInterceptor(authInterceptor)
             .addInterceptor(httpLoggingInterceptor)
+            .addInterceptor(authInterceptor)
             .readTimeout(15, TimeUnit.SECONDS)
             .writeTimeout(15, TimeUnit.SECONDS)
             .connectTimeout(15, TimeUnit.SECONDS)
@@ -59,5 +64,5 @@ class RemoteModule(private val isDebug: Boolean, private val apiKey: String, pri
         retrofit.create(TheMoviesDBApiService::class.java)
 
     @Provides
-    fun provideMovieResultMapper(): Mapper<MovieResult, Movie> = MovieResultMapper()
+    fun provideMovieResultMapper(): Mapper<MovieResult, Movie> = MovieResultMapper(baseImageURL)
 }

@@ -18,25 +18,25 @@ interface TheMoviesDBApiService {
      *
      * this list gets updated daily.
      */
-    @GET("/movie/popular")
+    @GET("movie/popular")
     suspend fun getPopularMovies(): MoviesListResult
 
     /**
      * Retrieves a list of the top rated movies on TheMoviesDB.
      */
-    @GET("/movie/top_rated")
+    @GET("movie/top_rated")
     suspend fun getTopRatedMovies(): MoviesListResult
 
     /**
      * Get a list of upcoming movies in theatres.
      */
-    @GET("/movie/upcoming")
+    @GET("movie/upcoming")
     suspend fun getUpcomingMovies(): MoviesListResult
 
     /**
      * Retrieves the details of a given movie.
      * @param movieId Integer unique identifier for the movie.
      */
-    @GET("/movie/{movie_id}")
+    @GET("movie/{movie_id}")
     suspend fun getMovieDetails(@Path("movie_id") movieId: Int): MovieResult
 }

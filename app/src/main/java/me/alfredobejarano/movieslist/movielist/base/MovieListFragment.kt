@@ -38,7 +38,7 @@ abstract class MovieListFragment : Fragment() {
         savedState: Bundle?
     ) = RecyclerView(requireContext()).apply {
         AndroidSupportInjection.inject(this@MovieListFragment)
-        layoutManager = GridLayoutManager(context, 3)
+        layoutManager = GridLayoutManager(context, 2)
         viewModel =
             ViewModelProviders.of(this@MovieListFragment, factory)[MovieListViewModel::class.java]
     }.also {

@@ -9,7 +9,7 @@ import java.util.Locale
 /**
  * Created by alfredo on 2019-08-02.
  */
-class MovieResultMapper : Mapper<MovieResult, Movie> {
+class MovieResultMapper(private val baseImageURL: String) : Mapper<MovieResult, Movie> {
     companion object {
         private const val RELEASE_DATE_UI_FORMAT = "MMMM dd, yyyy"
         private const val RELEASE_DATE_REMOTE_FORMAT = "yyyy-MM-dd"
@@ -18,7 +18,7 @@ class MovieResultMapper : Mapper<MovieResult, Movie> {
     override fun map(remote: MovieResult) = Movie(
         id = remote.id ?: 0,
         title = remote.title ?: "",
-        posterURL = remote.posterPath ?: "",
+        posterURL = "$baseImageURL${remote.posterPath}",
         rating = getRatingPercentage(remote.voteAverage),
         releaseDate = getUIReleaseDate(remote.releaseDate)
     )

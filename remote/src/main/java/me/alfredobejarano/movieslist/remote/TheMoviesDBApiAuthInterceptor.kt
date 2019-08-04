@@ -1,7 +1,8 @@
 package me.alfredobejarano.movieslist.remote
 
+import okhttp3.HttpUrl
 import okhttp3.Interceptor
-import okhttp3.Request
+import okhttp3.Response
 import java.util.Locale
 
 /**
@@ -11,14 +12,13 @@ import java.util.Locale
  * Created by alfredo on 2019-08-02.
  */
 class TheMoviesDBApiAuthInterceptor(private val apiKey: String) : Interceptor {
-    override fun intercept(chain: Interceptor.Chain) = chain.run {
-        proceed(request()).newBuilder().apply { buildRequest(request()) }.build()
+    override fun intercept(chain: Interceptor.Chain): Response = chain.run {
+        proceed(request().newBuilder().apply {
+            url(addQueryParamsToURL(request().url.newBuilder()))
+        }.build())
     }
 
-    private fun buildRequest(request: Request) =
-        request.newBuilder().url(addQueryParamsToURL(request)).build()
-
-    private fun addQueryParamsToURL(request: Request) = request.url.newBuilder().apply {
+    private fun addQueryParamsToURL(urlBuilder: HttpUrl.Builder) = urlBuilder.apply {
         val deviceRegion = getLanguageAndRegion()
         addQueryParameter("api_key", apiKey)
         addQueryParameter("language", deviceRegion.first)

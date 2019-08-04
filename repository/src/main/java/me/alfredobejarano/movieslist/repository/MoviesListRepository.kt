@@ -3,6 +3,7 @@ package me.alfredobejarano.movieslist.repository
 import me.alfredobejarano.local.CachesLifeManager
 import me.alfredobejarano.local.dao.MovieDao
 import me.alfredobejarano.local.dao.MovieListIndexDao
+import me.alfredobejarano.local.entity.MovieListIndex
 import me.alfredobejarano.movieslist.core.Movie
 import me.alfredobejarano.movieslist.core.MovieListType
 import me.alfredobejarano.movieslist.remote.TheMoviesDBApiService
@@ -33,10 +34,19 @@ class MoviesListRepository @Inject constructor(
         if (cachesLifeManager.listCacheIsValid(type)) {
             getMoviesListFromLocal(type)
         } else {
-            getMovieListFromRemote(type).also {
-                cachesLifeManager.generateListCache(type)
-            }
+            generateMovieListCache(type, getMovieListFromRemote(type))
         }
+
+    private suspend fun generateMovieListCache(type: MovieListType, movies: List<Movie>) = movies.apply {
+        val movieIds = mutableListOf<Int>()
+        forEach { movie ->
+            movieIds.add(movie.id)
+            movieDaoDataSource.createOrUpdate(movie)
+        }
+
+        movieListIndexMovieDao.createOrupdate(MovieListIndex(type.ordinal, movieIds))
+        cachesLifeManager.generateListCache(type)
+    }
 
     /**
      * Retrieves the cached Movies.

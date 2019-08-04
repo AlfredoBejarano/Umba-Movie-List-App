@@ -27,7 +27,14 @@ object Injector {
             .builder()
             .application(app)
             .localModule(LocalModule(app))
-            .remoteModule(RemoteModule(BuildConfig.DEBUG, BuildConfig.API_KEY, BuildConfig.BASE_URL))
+            .remoteModule(
+                RemoteModule(
+                    BuildConfig.DEBUG,
+                    BuildConfig.API_KEY,
+                    BuildConfig.BASE_URL,
+                    BuildConfig.POSTER_BASE_URL
+                )
+            )
             .build()
     }
 }

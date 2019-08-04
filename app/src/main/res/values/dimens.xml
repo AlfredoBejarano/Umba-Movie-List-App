@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="material_design_image_list_padding">2dp</dimen>
-    <dimen name="image_list_movie_size">160dp</dimen>
+    <dimen name="image_list_movie_size">250dp</dimen>
     <dimen name="match_constraints">0dp</dimen>
     <dimen name="movie_list_title_text_size">12sp</dimen>
     <dimen name="movie_list_rating_text_size">12sp</dimen>
