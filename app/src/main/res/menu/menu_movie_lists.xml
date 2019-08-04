@@ -2,15 +2,15 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/upcoming"
-        android:icon="@drawable/ic_upcoming_black_24dp"
+        android:icon="@drawable/ic_upcoming_white_24dp"
         android:title="@string/menu_upcoming" />
     <item
         android:id="@+id/popular"
-        android:icon="@drawable/ic_popular_black_24dp"
+        android:icon="@drawable/ic_popular_white_24dp"
         android:title="@string/menu_popular" />
 
     <item
         android:id="@+id/top_rated"
-        android:icon="@drawable/ic_top_rated_black_24dp"
+        android:icon="@drawable/ic_top_rated_white_24dp"
         android:title="@string/menu_top_rated" />
 </menu>

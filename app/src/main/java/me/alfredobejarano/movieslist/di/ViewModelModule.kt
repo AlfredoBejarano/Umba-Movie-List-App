@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
-import me.alfredobejarano.movieslist.movielist.base.MovieListViewModel
+import me.alfredobejarano.movieslist.movielist.MovieListViewModel
 
 /**
  * Created by alfredo on 2019-08-02.

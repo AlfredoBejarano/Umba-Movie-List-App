@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/app_nav"
-    app:startDestination="@id/movieListHubFragment">
+    app:startDestination="@id/movieListFragment">
 
     <fragment
-        android:id="@+id/movieListHubFragment"
-        android:name="me.alfredobejarano.movieslist.movielist.MovieListHubFragment"
+        android:id="@+id/movieListFragment"
+        android:name="me.alfredobejarano.movieslist.movielist.MovieListFragment"
         android:label="MovieListHubFragment"
-        tools:layout="@layout/fragment_movie_list_hub" />
+        tools:layout="@layout/fragment_movie_list" />
 </navigation>

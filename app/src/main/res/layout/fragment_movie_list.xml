@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools" xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <androidx.constraintlayout.widget.Guideline android:id="@+id/popularGuideline"
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"
+                                                    android:orientation="horizontal"
+                                                    app:layout_constraintGuide_percent="0.333"/>
+        <androidx.constraintlayout.widget.Guideline android:id="@+id/topRatedGuideline"
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"
+                                                    android:orientation="horizontal"
+                                                    app:layout_constraintGuide_percent="0.666"/>
+        <TextView
+            android:id="@+id/upcomingTitleTextView"
+            style="@style/AppTheme.MovieListTitle"
+            android:layout_width="@dimen/match_constraints"
+            android:layout_height="wrap_content"
+            android:text="@string/menu_upcoming"
+            android:drawableStart="@drawable/ic_upcoming_white_24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:id="@+id/popularTitleTextView"
+            style="@style/AppTheme.MovieListTitle"
+            android:layout_width="@dimen/match_constraints"
+            android:layout_height="wrap_content"
+            android:text="@string/menu_popular"
+            android:drawableStart="@drawable/ic_popular_white_24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/popularGuideline"/>
+
+        <TextView
+            android:id="@+id/topRatedTitleTextView"
+            style="@style/AppTheme.MovieListTitle"
+            android:layout_width="@dimen/match_constraints"
+            android:layout_height="wrap_content"
+            android:text="@string/menu_top_rated"
+            android:drawableStart="@drawable/ic_top_rated_white_24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/topRatedGuideline"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/upcomingMovieList"
+            android:layout_margin="8dp"
+            tools:listitem="@layout/item_movie"
+            android:layout_width="@dimen/match_constraints"
+            android:layout_height="@dimen/match_constraints"
+            app:layout_constraintBottom_toBottomOf="@+id/popularGuideline"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/upcomingTitleTextView"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/popularMovieList"
+            android:layout_margin="8dp"
+            tools:listitem="@layout/item_movie"
+            android:layout_width="@dimen/match_constraints"
+            android:layout_height="@dimen/match_constraints"
+            app:layout_constraintBottom_toBottomOf="@+id/topRatedGuideline"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/popularTitleTextView"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/topRatedMovieList"
+            android:layout_margin="8dp"
+            tools:listitem="@layout/item_movie"
+            android:layout_width="@dimen/match_constraints"
+            android:layout_height="@dimen/match_constraints"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/topRatedTitleTextView"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
