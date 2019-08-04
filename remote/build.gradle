@@ -1,12 +1,13 @@
 apply plugin: 'java-library'
 apply plugin: 'kotlin'
+apply plugin: 'kotlin-kapt'
 
 dependencies {
     def dependencies = rootProject.ext.remote_dependencies
     implementation dependencies.retrofit_2
     implementation dependencies.retrofit_gson_converter
     implementation dependencies.ok_http_logging_interceptor
-
+    kapt dependencies.dagger_compiler
     implementation project(':core')
 }
 

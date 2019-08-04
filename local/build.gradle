@@ -29,6 +29,7 @@ android {
 dependencies {
     def dependencies = rootProject.ext.local_dependencies
     kapt dependencies.room_compiler
+    kapt dependencies.dagger_compiler
     implementation dependencies.room
     implementation dependencies.room_coroutines
 
