@@ -1,6 +1,7 @@
 package me.alfredobejarano.movieslist.remote
 
-import me.alfredobejarano.movieslist.remote.model.MovieResult
+import me.alfredobejarano.movieslist.remote.model.MovieDetails
+import me.alfredobejarano.movieslist.remote.model.MovieVideo
 import me.alfredobejarano.movieslist.remote.model.MoviesListResult
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -35,15 +36,21 @@ interface TheMoviesDBApiService {
     suspend fun getUpcomingMovies(): MoviesListResult
 
     /**
-     * Retrieves the details of a given movie.
-     * @param movieId Integer unique identifier for the movie.
-     */
-    @GET("movie/{movie_id}")
-    suspend fun getMovieDetails(@Path("movie_id") movieId: Int): MovieResult
-
-    /**
      * Searchs for movies with the title matching the given query.
      */
     @GET("search/movie")
     suspend fun searchMovie(@Query("query") query: String, @Query("include_adult") includeAdult: Boolean = false): MoviesListResult
+
+    /**
+     * Retrieves the details of a given movie.
+     * @param movieId Integer unique identifier for the movie.
+     */
+    @GET("/movie/{movie_id}")
+    suspend fun getMovieDetails(@Path("movie_id") movieId: Int): MovieDetails
+
+    /**
+     * Retrieves the available videos for a given movie.
+     */
+    @GET("/movie/{movie_id}/videos")
+    suspend fun getMovieVideos(@Path("movie_id") movieId: Int): MovieVideo
 }
