@@ -39,14 +39,15 @@
 		
 		<com.facebook.drawee.view.SimpleDraweeView
 			android:id="@+id/moviePosterSimpleDraweeView"
+			posterURL="@{movie.posterURL}"
 			android:layout_width="@dimen/match_constraints"
 			android:layout_height="@dimen/match_constraints"
 			android:scaleType="fitXY"
+			app:fadeDuration="500"
 			app:layout_constraintBottom_toBottomOf="@id/moviePosterGuideline"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toTopOf="parent"
-			app:posterURL="@{movie.posterURL}"/>
+			app:layout_constraintTop_toTopOf="parent"/>
 		
 		<androidx.constraintlayout.widget.Group
 			android:id="@+id/movieDetailsGroup"
@@ -56,7 +57,7 @@
 			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toTopOf="@id/movieDetailsGuideline"/>
+			app:layout_constraintTop_toTopOf="parent"/>
 		
 		<TextView
 			android:id="@+id/movieTitleTextView"
@@ -71,7 +72,7 @@
 			android:textSize="@dimen/movie_details_fragment_movie_title_text_size"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toTopOf="@+id/movieDetailsGroup"
+			app:layout_constraintTop_toTopOf="@+id/movieDetailsGuideline"
 			tools:text="Spider-Man: Far From Home"/>
 		
 		<TextView

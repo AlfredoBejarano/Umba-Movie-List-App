@@ -70,5 +70,5 @@ class RemoteModule(
     fun provideMovieResultMapper(): Mapper<MovieResult, Movie> = MovieResultMapper(baseImageURL)
 
     @Provides
-    fun provideMovieDetailsMapper(): Mapper<MovieSummary, MovieDetails> = MovieDetailsMapper()
+    fun provideMovieDetailsMapper(): Mapper<MovieSummary, MovieDetails> = MovieDetailsMapper(baseImageURL)
 }

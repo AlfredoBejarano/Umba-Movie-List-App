@@ -14,12 +14,12 @@ abstract class BindingAdapters {
     companion object {
         @JvmStatic
         @BindingAdapter("posterURL")
-        fun setPosterURL(simpleDraweeView: SimpleDraweeView, url: String) {
+        fun setPosterURL(simpleDraweeView: SimpleDraweeView, url: String?) {
             simpleDraweeView.hierarchy.setPlaceholderImage(
                 ContextCompat.getDrawable(simpleDraweeView.context, R.drawable.shape_movie_placeholder)
             )
 
-            val imageRequest = ImageRequestBuilder.newBuilderWithSource(Uri.parse(url)).build()
+            val imageRequest = ImageRequestBuilder.newBuilderWithSource(Uri.parse(url ?: "")).build()
             simpleDraweeView.setImageRequest(imageRequest)
         }
     }

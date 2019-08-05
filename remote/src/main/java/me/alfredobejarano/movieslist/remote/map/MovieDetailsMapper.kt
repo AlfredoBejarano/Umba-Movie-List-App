@@ -4,7 +4,7 @@ import me.alfredobejarano.movieslist.core.MovieDetails
 import me.alfredobejarano.movieslist.remote.model.MovieGenre
 import me.alfredobejarano.movieslist.remote.model.MovieSummary
 
-class MovieDetailsMapper : Mapper<MovieSummary, MovieDetails> {
+class MovieDetailsMapper(private val baseImageURL: String) : Mapper<MovieSummary, MovieDetails> {
     var movieVideoKey = ""
 
     override fun map(remote: MovieSummary) = MovieDetails(
@@ -13,7 +13,7 @@ class MovieDetailsMapper : Mapper<MovieSummary, MovieDetails> {
         remote.runtime ?: 0,
         remote.votesCount ?: 0,
         extractGenresNames(remote.genres ?: emptyList()),
-        remote.poster ?: "",
+        "$baseImageURL${remote.poster}",
         remote.overview ?: "",
         movieVideoKey
     )
