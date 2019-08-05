@@ -1,6 +1,5 @@
 package me.alfredobejarano.movieslist.movielist
 
-import android.util.Log
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.DiffUtil
@@ -16,7 +15,7 @@ import me.alfredobejarano.movieslist.utils.layoutInflater
  *
  * It uses [DiffUtil] to maintain the code complexity as lower as possible.
  */
-internal class MovieListAdapter(private var movies: List<Movie>) :
+internal class MovieListAdapter(private var movies: List<Movie>, private val onMovieSelected: (Int) -> Unit = {}) :
     RecyclerView.Adapter<MovieListAdapter.MovieViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         MovieViewHolder(
@@ -28,9 +27,7 @@ internal class MovieListAdapter(private var movies: List<Movie>) :
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) = holder.binding.run {
         movie = movies[position]
         executePendingBindings()
-        root.setOnClickListener {
-            Log.d("MOVIE", movie?.id?.toString() ?: "")
-        }
+        root.setOnClickListener { onMovieSelected(movie?.id ?: 0) }
         root.startAnimation(AnimationUtils.loadAnimation(root.context, R.anim.slide_in_down))
     }
 

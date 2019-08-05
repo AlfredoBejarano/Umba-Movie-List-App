@@ -87,7 +87,7 @@ class MovieListFragment : Fragment() {
                 hideSearchResultFragment()
             }
         }
-        setOnEditorActionListener { textView, actionId, _ ->
+        setOnEditorActionListener { _, actionId, _ ->
             var handled = false
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 hideSoftKeyboard()
@@ -124,7 +124,9 @@ class MovieListFragment : Fragment() {
                 adapter?.let { adapter ->
                     (adapter as? MovieListAdapter)?.updateList(list)
                 } ?: run {
-                    adapter = MovieListAdapter(list)
+                    adapter = MovieListAdapter(list) { movieId ->
+                        navHostViewModel.reportMovieSelection(movieId)
+                    }
                 }
                 animateView(
                     this, if (type == MovieListType.MOVIE_LIST_POPULAR) {

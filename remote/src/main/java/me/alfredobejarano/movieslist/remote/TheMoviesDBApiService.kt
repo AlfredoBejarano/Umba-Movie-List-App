@@ -45,12 +45,12 @@ interface TheMoviesDBApiService {
      * Retrieves the details of a given movie.
      * @param movieId Integer unique identifier for the movie.
      */
-    @GET("/movie/{movie_id}")
+    @GET("movie/{movie_id}")
     suspend fun getMovieDetails(@Path("movie_id") movieId: Int): MovieSummary
 
     /**
      * Retrieves the available videos for a given movie.
      */
-    @GET("/movie/{movie_id}/videos")
+    @GET("movie/{movie_id}/videos")
     suspend fun getMovieVideos(@Path("movie_id") movieId: Int): MovieVideo
 }

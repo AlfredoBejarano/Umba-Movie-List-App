@@ -11,7 +11,14 @@ class NavHostViewModel : ViewModel() {
     private val searchQueryMediatorLiveData = MediatorLiveData<String>()
     val searchQueryLiveData = searchQueryMediatorLiveData as LiveData<String>
 
+    private val movieSelectionMediatorLiveData = MediatorLiveData<Int>()
+    val movieSelectionLiveData = movieSelectionMediatorLiveData as LiveData<Int>
+
     fun reportQueryChange(query: String) {
         searchQueryMediatorLiveData.value = query
+    }
+
+    fun reportMovieSelection(movieId: Int) {
+        movieSelectionMediatorLiveData.value = movieId
     }
 }

@@ -59,6 +59,8 @@ class MovieSearchFragment : Fragment() {
     private fun renderMovieSearchResult(list: List<Movie>) = searchListRecyclerView.adapter?.let { adapter ->
         (adapter as MovieSearchResultsListAdapter).updateList(list)
     } ?: run {
-        searchListRecyclerView.adapter = MovieSearchResultsListAdapter(list)
+        searchListRecyclerView.adapter = MovieSearchResultsListAdapter(list) { movieId ->
+            navHostViewModel.reportMovieSelection(movieId)
+        }
     }
 }
