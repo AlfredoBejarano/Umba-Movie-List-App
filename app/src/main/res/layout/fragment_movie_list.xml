@@ -118,5 +118,17 @@
                                                     android:layout_height="wrap_content"
                                                     android:orientation="vertical"
                                                     app:layout_constraintGuide_percent="0.07"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/searchResultsList"
+            android:visibility="gone"
+            android:background="@drawable/ic_search_results_background"
+            tools:listitem="@layout/item_movie_search_result"
+            android:layout_width="@dimen/match_constraints"
+            android:layout_height="@dimen/match_constraints"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/searchGuideline"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

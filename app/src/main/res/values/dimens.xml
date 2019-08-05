@@ -15,4 +15,8 @@
     <dimen name="fragment_movie_list_search_bar_elevation">2dp</dimen>
     <dimen name="fragment_movie_list_search_bar_padding_horizontal">16dp</dimen>
     <dimen name="fragment_movie_list_search_bar_drawable_padding">16dp</dimen>
+    <dimen name="item_movie_search_result_height">72dp</dimen>
+    <dimen name="item_movie_search_result_poster_size">40dp</dimen>
+    <dimen name="item_movie_search_result_margin_start">16dp</dimen>
+    <dimen name="item_movie_search_result_date_text_size">12sp</dimen>
 </resources>
