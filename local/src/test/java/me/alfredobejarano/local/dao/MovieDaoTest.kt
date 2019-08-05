@@ -36,9 +36,89 @@ class MovieDaoTest {
 
             testCandidate.createOrUpdate(testSubject)
 
-            val retrievedSubject = testCandidate.read(testSubjectId)
+            val retrievedSubject = testCandidate.read(testSubjectId).first()
 
             assert(retrievedSubject == testSubject)
+        }
+    }
+
+    @Test
+    fun updateTest() {
+        scope.launch {
+            val testSubjectId = Random.nextInt()
+            val testSubject = Movie(id = testSubjectId)
+
+            testCandidate.createOrUpdate(testSubject)
+            val retrievedSubject = testCandidate.read(testSubjectId).first()
+
+            assert(retrievedSubject.title == "")
+
+            val updatedTitle = "title"
+            val updateTestSubject = Movie(id = testSubjectId, title = updatedTitle)
+            testCandidate.createOrUpdate(updateTestSubject)
+
+            assert(retrievedSubject.title == updatedTitle)
+        }
+    }
+
+    @Test
+    fun readTest() {
+        scope.launch {
+            val testSubjectId = Random.nextInt()
+            val testSubject = Movie(id = testSubjectId)
+
+            testCandidate.createOrUpdate(testSubject)
+
+            val retrievedSubject = testCandidate.read(testSubjectId).first()
+
+            assert(retrievedSubject == testSubject)
+        }
+    }
+
+    @Test
+    fun findByTitleTest() {
+        scope.launch {
+            val testSubject = Movie(title = "My awesome movie")
+
+            testCandidate.createOrUpdate(testSubject)
+
+            var retrievedSubjects = testCandidate.findByTitle("awes")
+            assert(retrievedSubjects.isNotEmpty())
+
+            retrievedSubjects = testCandidate.findByTitle("ewe")
+            assert(retrievedSubjects.isEmpty())
+        }
+    }
+
+    @Test
+    fun deleteTest() {
+        scope.launch {
+            val testSubject = Movie()
+            testCandidate.createOrUpdate(testSubject)
+
+            var movies = testCandidate.read(0)
+            assert(movies.isNotEmpty())
+
+            testCandidate.delete(movies.first())
+            movies = testCandidate.read(0)
+
+            assert(movies.isEmpty())
+        }
+    }
+
+    @Test
+    fun deleteAllTest() {
+        scope.launch {
+            val testSubject = Movie()
+            testCandidate.createOrUpdate(testSubject)
+
+            var movies = testCandidate.read(0)
+            assert(movies.isNotEmpty())
+
+            testCandidate.deleteAll()
+            movies = testCandidate.read(0)
+
+            assert(movies.isEmpty())
         }
     }
 

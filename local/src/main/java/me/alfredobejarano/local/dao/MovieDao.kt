@@ -16,7 +16,7 @@ interface MovieDao {
     suspend fun createOrUpdate(movie: Movie)
 
     @Query("SELECT * FROM movies WHERE pk == :movieId")
-    suspend fun read(movieId: Int): Movie
+    suspend fun read(movieId: Int): List<Movie>
 
     @Query("SELECT * FROM movies WHERE title LIKE :query")
     suspend fun findByTitle(query: String): List<Movie>

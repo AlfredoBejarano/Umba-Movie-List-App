@@ -57,7 +57,7 @@ class MoviesListRepository @Inject constructor(
     private suspend infix fun getMoviesListFromLocal(listType: MovieListType): List<Movie> {
         val movieListIndex = movieListIndexMovieDao.getListIndex(listType.ordinal)
         return movieListIndex.movies.map { movieId ->
-            movieDaoDataSource.read(movieId)
+            movieDaoDataSource.read(movieId).first()
         }
     }
 
@@ -83,5 +83,5 @@ class MoviesListRepository @Inject constructor(
     /**
      * Retrieves the details of a Movie from the cache source.
      */
-    suspend fun getMovieListResult(movieId: Int) = movieDaoDataSource.read(movieId)
+    suspend fun getMovieListResult(movieId: Int) = movieDaoDataSource.read(movieId).first()
 }
