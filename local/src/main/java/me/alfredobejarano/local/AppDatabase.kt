@@ -12,12 +12,13 @@ import me.alfredobejarano.local.entity.MovieListIndex
 import me.alfredobejarano.local.typeconverters.IntListTypeConverter
 import me.alfredobejarano.local.typeconverters.StringListTypeConverter
 import me.alfredobejarano.movieslist.core.Movie
+import me.alfredobejarano.movieslist.core.MovieDetails
 
 /**
  * Created by alfredo on 2019-08-02.
  */
 @Database(
-    entities = [Movie::class, MovieListIndex::class],
+    entities = [Movie::class, MovieListIndex::class, MovieDetails::class],
     version = BuildConfig.VERSION_CODE,
     exportSchema = false
 )
