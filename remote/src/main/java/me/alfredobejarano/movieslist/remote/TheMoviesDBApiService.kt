@@ -45,5 +45,5 @@ interface TheMoviesDBApiService {
      * Searchs for movies with the title matching the given query.
      */
     @GET("search/movie")
-    suspend fun searchMovie(@Query("query") query: String): MoviesListResult
+    suspend fun searchMovie(@Query("query") query: String, @Query("include_adult") includeAdult: Boolean = false): MoviesListResult
 }
