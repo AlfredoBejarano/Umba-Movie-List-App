@@ -15,11 +15,13 @@ class CachesLifeManager constructor(app: Application) {
         private const val FILE_NAME = "caches"
 
         /* Caches data keys */
+        private const val MOVIE_DETAILS_CACHE = "movie_"
         private const val MOVIES_LIST_POPULAR_KEY = "movies_list_popular"
         private const val MOVIES_LIST_UPCOMING_KEY = "movies_list_upcoming"
         private const val MOVIES_LIST_TOP_RATED_KEY = "movies_list_top_rated"
 
         /* Caches lifetime keys */
+        private val MOVIE_DETAILS_LIFE_TIME = TimeUnit.MILLISECONDS.convert(15, TimeUnit.DAYS)
         private val MOVIES_LIST_POPULAR_LIFE_TIME =
             TimeUnit.MILLISECONDS.convert(1, TimeUnit.DAYS)
         private val MOVIES_LIST_UPCOMING_LIFE_TIME =
@@ -41,6 +43,15 @@ class CachesLifeManager constructor(app: Application) {
     private fun generateCache(key: String = "", lifeTime: Long = 0L) = preferences.edit().apply {
         putLong(key, getCurrentDate() + lifeTime)
     }.apply()
+
+    fun generateMovieDetailsCache(movieId: Int) {
+        val movieKey = "$MOVIE_DETAILS_CACHE$movieId"
+        generateCache(movieKey, MOVIE_DETAILS_LIFE_TIME)
+    }
+
+    fun movieCacheIsValid(movieId: Int) = "$MOVIE_DETAILS_CACHE$movieId".run {
+        isCacheValid(this)
+    }
 
     fun listCacheIsValid(type: MovieListType) = when (type) {
         MovieListType.MOVIE_LIST_POPULAR -> isCacheValid(MOVIES_LIST_POPULAR_KEY)
