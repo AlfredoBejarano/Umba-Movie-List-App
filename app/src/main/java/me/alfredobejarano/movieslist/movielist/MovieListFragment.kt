@@ -15,6 +15,8 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.FragmentNavigatorExtras
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.android.support.AndroidSupportInjection
@@ -27,6 +29,7 @@ import me.alfredobejarano.movieslist.databinding.FragmentMovieListBinding
 import me.alfredobejarano.movieslist.di.ViewModelFactory
 import me.alfredobejarano.movieslist.search.MovieSearchFragment
 import me.alfredobejarano.movieslist.utils.hideSoftKeyboard
+import me.alfredobejarano.movieslist.utils.openMovieDetails
 import javax.inject.Inject
 
 /**
@@ -35,10 +38,6 @@ import javax.inject.Inject
  * Created by alfredo on 2019-08-02.
  */
 class MovieListFragment : Fragment() {
-    companion object {
-        private const val SEARCH_QUERY_THRESHOLD = 3
-    }
-
     @Inject
     lateinit var factory: ViewModelFactory
 
@@ -63,7 +62,6 @@ class MovieListFragment : Fragment() {
         topRatedRecyclerView = setupRecyclerView(topRatedMovieList)
 
         searchResultFrameLayout = searchResultsFrameLayout
-
         navHostViewModel = ViewModelProviders.of(requireActivity())[NavHostViewModel::class.java]
         viewModel = ViewModelProviders.of(this@MovieListFragment, factory)[MovieListViewModel::class.java]
 
@@ -124,9 +122,7 @@ class MovieListFragment : Fragment() {
                 adapter?.let { adapter ->
                     (adapter as? MovieListAdapter)?.updateList(list)
                 } ?: run {
-                    adapter = MovieListAdapter(list) { movieId ->
-                        navHostViewModel.reportMovieSelection(movieId)
-                    }
+                    adapter = MovieListAdapter(list) { movieId, view -> openMovieDetails(movieId, view) }
                 }
                 animateView(
                     this, if (type == MovieListType.MOVIE_LIST_POPULAR) {
@@ -153,10 +149,10 @@ class MovieListFragment : Fragment() {
 
     private fun displaySearchResultFragment(query: String) {
         searchResultFrameLayout.visibility = View.VISIBLE
+        navHostViewModel.reportQueryChange(query)
         requireFragmentManager().beginTransaction()
             .replace(R.id.searchResultsFrameLayout, MovieSearchFragment(), MovieSearchFragment.FRAGMENT_TAG)
             .commit()
-        navHostViewModel.reportQueryChange(query)
     }
 
     private fun hideSearchResultFragment() =
