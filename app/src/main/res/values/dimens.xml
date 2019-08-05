@@ -19,4 +19,7 @@
     <dimen name="item_movie_search_result_poster_size">40dp</dimen>
     <dimen name="item_movie_search_result_margin_start">16dp</dimen>
     <dimen name="item_movie_search_result_date_text_size">12sp</dimen>
+    <dimen name="movie_details_horizontal_margin">8dp</dimen>
+    <dimen name="movie_details_fragment_movie_title_text_size">24sp</dimen>
+	<dimen name="movie_details_fragment_vertical_margin">24dp</dimen>
 </resources>

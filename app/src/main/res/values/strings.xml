@@ -5,4 +5,6 @@
     <string name="menu_popular">Popular</string>
     <string name="menu_top_rated">Top Rated</string>
     <string name="search_for_movies">Search for movies</string>
+    <string name="runtime">%1$d min.</string>
+    <string name="votes">%1$d votes</string>
 </resources>
