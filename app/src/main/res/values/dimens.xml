@@ -11,4 +11,8 @@
     <dimen name="item_movie_poster_width">92dp</dimen>
     <dimen name="item_movie_posteR_elevation">2dp</dimen>
     <dimen name="item_movie_poster_corner_radius">8dp</dimen>
+    <dimen name="fragment_movie_list_search_bar_margin_vertical">8dp</dimen>
+    <dimen name="fragment_movie_list_search_bar_elevation">2dp</dimen>
+    <dimen name="fragment_movie_list_search_bar_padding_horizontal">16dp</dimen>
+    <dimen name="fragment_movie_list_search_bar_drawable_padding">16dp</dimen>
 </resources>
