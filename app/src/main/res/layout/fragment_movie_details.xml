@@ -139,5 +139,25 @@
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toBottomOf="@+id/genresTextView"
 			tools:text="In the latest chapter of MCU's Spider-Man series, our friendly neighborhood superhero"/>
+		
+		<FrameLayout
+			android:layout_width="@dimen/match_constraints"
+			android:layout_height="@dimen/match_constraints"
+			app:layout_constraintBottom_toTopOf="@id/movieDetailsGuideline"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			app:setVisible="@{movie.videoKey.length() > 0}">
+			
+			<ImageView
+				android:layout_width="@dimen/fragment_movie_details_play_button_size"
+				android:layout_height="@dimen/fragment_movie_details_play_button_size"
+				android:layout_gravity="center"
+				android:adjustViewBounds="true"
+				android:background="?android:selectableItemBackground"
+				android:contentDescription="@string/movie_trailer"
+				android:elevation="@dimen/fragment_movie_list_search_bar_elevation"
+				android:src="@drawable/ic_play_arrow_white_24dp"/>
+		</FrameLayout>
 	</androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

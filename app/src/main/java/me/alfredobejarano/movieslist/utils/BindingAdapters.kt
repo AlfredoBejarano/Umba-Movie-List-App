@@ -1,6 +1,8 @@
 package me.alfredobejarano.movieslist.utils
 
 import android.net.Uri
+import android.view.View
+import android.widget.FrameLayout
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import com.facebook.drawee.view.SimpleDraweeView
@@ -21,6 +23,12 @@ abstract class BindingAdapters {
 
             val imageRequest = ImageRequestBuilder.newBuilderWithSource(Uri.parse(url ?: "")).build()
             simpleDraweeView.setImageRequest(imageRequest)
+        }
+
+        @JvmStatic
+        @BindingAdapter("setVisible")
+        fun setViewVisibleByBoolean(layout: FrameLayout, visible: Boolean) {
+            layout.visibility = if (visible) View.VISIBLE else View.GONE
         }
     }
 }

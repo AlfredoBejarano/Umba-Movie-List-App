@@ -22,4 +22,5 @@
     <dimen name="movie_details_horizontal_margin">8dp</dimen>
     <dimen name="movie_details_fragment_movie_title_text_size">24sp</dimen>
 	<dimen name="movie_details_fragment_vertical_margin">24dp</dimen>
+	<dimen name="fragment_movie_details_play_button_size">64dp</dimen>
 </resources>
