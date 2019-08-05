@@ -79,4 +79,9 @@ class MoviesListRepository @Inject constructor(
         // If an error happens with remote, return the local cached values.
         movieDaoDataSource.findByTitle("%$query%")
     }.sortedWith(compareBy { it.title }) // Sort the movies alphabetically
+
+    /**
+     * Retrieves the details of a Movie from the cache source.
+     */
+    suspend fun getMovieListResult(movieId: Int) = movieDaoDataSource.read(movieId)
 }
