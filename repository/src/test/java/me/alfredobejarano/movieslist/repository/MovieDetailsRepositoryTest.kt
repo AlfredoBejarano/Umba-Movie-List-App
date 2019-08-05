@@ -57,4 +57,52 @@ class MovieDetailsRepositoryTest {
         }
     }
 
+    @Test
+    fun getMovieDetails_getFromRemote_Failure() {
+        scope.launch {
+            val mockMovieId = 123
+            val mockMovievideo = MovieVideo()
+            val mockMovieSummary = MovieSummary()
+            val mockMovieDetails = MovieDetails()
+
+            Mockito.`when`(mockCachesLifeManager.movieCacheIsValid(mockMovieId))
+                .thenReturn(false)
+            Mockito.`when`(mockApiDataSource.getMovieVideos(mockMovieId)).thenReturn(mockMovievideo)
+            Mockito.`when`(mockApiDataSource.getMovieDetails(mockMovieId)).thenThrow(Exception())
+            Mockito.`when`(mockMapper.map(mockMovieSummary)).thenReturn(mockMovieDetails)
+
+            testSubject.getMovieDetails(mockMovieId)
+
+            Mockito.verify(mockMovieDetailsDao, Mockito.times(0)).createOrUpdate(mockMovieDetails)
+            Mockito.verify(mockCachesLifeManager, Mockito.times(0)).generateMovieDetailsCache(mockMovieId)
+        }
+    }
+
+    @Test
+    fun getMovieDetails_getFromLocal_Success() {
+        scope.launch {
+            val mockMovieId = 123
+            val mockMovieDetails = MovieDetails()
+
+            Mockito.`when`(mockCachesLifeManager.movieCacheIsValid(mockMovieId))
+                .thenReturn(true)
+
+            Mockito.`when`(mockMovieDetailsDao.read(mockMovieId)).thenReturn(listOf(mockMovieDetails))
+            Mockito.verify(mockMovieDetailsDao, Mockito.times(1)).read(mockMovieId)
+        }
+    }
+
+    @Test
+    fun getMovieDetails_getFromLocal_Failure() {
+        scope.launch {
+            val mockMovieId = 123
+            val mockMovieDetails = MovieDetails()
+
+            Mockito.`when`(mockCachesLifeManager.movieCacheIsValid(mockMovieId))
+                .thenReturn(true)
+
+            Mockito.`when`(mockMovieDetailsDao.read(mockMovieId)).thenThrow(Exception())
+            Mockito.verify(mockMovieDetailsDao, Mockito.times(1)).read(mockMovieId)
+        }
+    }
 }
