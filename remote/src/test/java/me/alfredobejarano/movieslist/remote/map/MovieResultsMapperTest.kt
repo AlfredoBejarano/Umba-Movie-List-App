@@ -1,7 +1,6 @@
 package me.alfredobejarano.movieslist.remote.map
 
 import me.alfredobejarano.movieslist.remote.model.MovieResult
-import me.alfredobejarano.movieslist.remote.model.MovieSummary
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
