@@ -13,6 +13,6 @@ import androidx.room.PrimaryKey
 data class MovieListIndex(
     @ColumnInfo(name = "pk")
     @PrimaryKey(autoGenerate = false)
-    val id: Int,
-    val movies: List<Int>
+    val id: Int = 0,
+    val movies: List<Int> = emptyList()
 )

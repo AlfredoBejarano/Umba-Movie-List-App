@@ -44,7 +44,7 @@ class MoviesListRepository @Inject constructor(
             movieDaoDataSource.createOrUpdate(movie)
         }
 
-        movieListIndexMovieDao.createOrupdate(MovieListIndex(type.ordinal, movieIds))
+        movieListIndexMovieDao.createOrUpdate(MovieListIndex(type.ordinal, movieIds))
         cachesLifeManager.generateListCache(type)
     }
 
@@ -56,7 +56,7 @@ class MoviesListRepository @Inject constructor(
      */
     private suspend infix fun getMoviesListFromLocal(listType: MovieListType): List<Movie> {
         val movieListIndex = movieListIndexMovieDao.getListIndex(listType.ordinal)
-        return movieListIndex.movies.map { movieId ->
+        return movieListIndex.first().movies.map { movieId ->
             movieDaoDataSource.read(movieId).first()
         }
     }

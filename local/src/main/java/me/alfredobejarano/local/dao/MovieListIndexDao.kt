@@ -14,14 +14,14 @@ import me.alfredobejarano.movieslist.core.MovieListType
 @Dao
 interface MovieListIndexDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun createOrupdate(movieIndex: MovieListIndex)
+    suspend fun createOrUpdate(movieIndex: MovieListIndex)
 
     /**
      * Reads the index of a list type.
      * The integer is retrieved from the [MovieListType] enum class ordinal value.
      */
     @Query("SELECT * FROM movie_list_index WHERE pk == :type")
-    suspend fun getListIndex(type: Int): MovieListIndex
+    suspend fun getListIndex(type: Int): List<MovieListIndex>
 
     @Delete
     suspend fun delete(movieIndex: MovieListIndex)
