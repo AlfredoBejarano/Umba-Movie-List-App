@@ -15,6 +15,7 @@ ext {
     def lifecycle_version = "2.2.0-alpha02"
     def constraint_layout_version = "1.1.2"
     def recycler_view_version = "1.1.0-beta01"
+    def youtube_api_version = '1.2.2.1'
 
     // :core dependencies
     def kotlin_version = '1.3.41'
@@ -49,6 +50,7 @@ ext {
             dagger_android_processor: "com.google.dagger:dagger-android-processor:$dagger_version",
             view_model_ktx          : "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version",
             constraint_layout       : "androidx.constraintlayout:constraintlayout:$constraint_layout_version",
+            youtube                 : "com.github.davidmigloz:youtube-android-player-api-gradle:$youtube_api_version"
     ]
 
     core_dependencies = [

@@ -41,6 +41,7 @@ dependencies {
     kapt dependencies.dagger_compiler
     implementation dependencies.fresco
     implementation dependencies.nav_ui
+    implementation dependencies.youtube
     implementation dependencies.core_ktx
     implementation dependencies.app_compat
     implementation dependencies.nav_fragment
