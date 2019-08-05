@@ -119,8 +119,8 @@
                                                     android:orientation="vertical"
                                                     app:layout_constraintGuide_percent="0.07"/>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/searchResultsList"
+        <FrameLayout
+            android:id="@+id/searchResultsFrameLayout"
             android:visibility="gone"
             android:background="@drawable/ic_search_results_background"
             tools:listitem="@layout/item_movie_search_result"

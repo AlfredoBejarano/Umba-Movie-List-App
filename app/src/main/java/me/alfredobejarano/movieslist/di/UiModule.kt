@@ -4,6 +4,7 @@ import dagger.Module
 import dagger.android.ContributesAndroidInjector
 import me.alfredobejarano.movieslist.NavHostActivity
 import me.alfredobejarano.movieslist.movielist.MovieListFragment
+import me.alfredobejarano.movieslist.search.MovieSearchFragment
 
 @Module
 abstract class UiModule {
@@ -12,4 +13,7 @@ abstract class UiModule {
 
     @ContributesAndroidInjector
     abstract fun contributeMovieListFragment(): MovieListFragment
+
+    @ContributesAndroidInjector
+    abstract fun contributeMovieSearchFragment(): MovieSearchFragment
 }

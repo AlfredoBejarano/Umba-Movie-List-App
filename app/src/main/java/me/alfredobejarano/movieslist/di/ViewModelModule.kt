@@ -6,6 +6,7 @@ import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
 import me.alfredobejarano.movieslist.movielist.MovieListViewModel
+import me.alfredobejarano.movieslist.search.MovieSearchViewModel
 
 /**
  * Created by alfredo on 2019-08-02.
@@ -20,4 +21,8 @@ abstract class ViewModelModule {
     @ViewModelKey(MovieListViewModel::class)
     abstract fun bindMovieListViewModel(viewModel: MovieListViewModel): ViewModel
 
+    @Binds
+    @IntoMap
+    @ViewModelKey(MovieSearchViewModel::class)
+    abstract fun bindMovieSearchViewModel(viewModel: MovieSearchViewModel): ViewModel
 }

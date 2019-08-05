@@ -1,4 +1,4 @@
-package me.alfredobejarano.movieslist.movielist
+package me.alfredobejarano.movieslist.search
 
 import android.util.Log
 import android.view.ViewGroup
@@ -31,7 +31,7 @@ internal class MovieSearchResultsListAdapter(private var movies: List<Movie>) :
         root.setOnClickListener {
             Log.d("MOVIE", movie?.id?.toString() ?: "")
         }
-        root.startAnimation(AnimationUtils.loadAnimation(root.context, R.anim.slide_in_right))
+        root.startAnimation(AnimationUtils.loadAnimation(root.context, R.anim.abc_fade_in))
     }
 
     fun updateList(newMovieList: List<Movie>) {
