@@ -9,6 +9,10 @@ dependencies {
     implementation dependencies.ok_http_logging_interceptor
     kapt dependencies.dagger_compiler
     implementation project(':core')
+
+    def common_dependencies = rootProject.ext.common_dependencies
+    testImplementation common_dependencies.junit
+    testImplementation common_dependencies.mockito
 }
 
 sourceCompatibility = "8"
