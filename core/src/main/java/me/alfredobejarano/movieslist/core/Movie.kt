@@ -11,9 +11,9 @@ import androidx.room.PrimaryKey
 data class Movie(
     @ColumnInfo(name = "pk")
     @PrimaryKey(autoGenerate = false)
-    val id: Int,
-    val rating: String,
-    val title: String,
-    val posterURL: String,
-    val releaseDate: String
+    val id: Int = 0,
+    val rating: String = "",
+    val title: String = "",
+    val posterURL: String = "",
+    val releaseDate: String = ""
 )
