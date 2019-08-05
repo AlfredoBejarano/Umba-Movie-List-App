@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
+import me.alfredobejarano.movieslist.details.MovieDetailsViewModel
 import me.alfredobejarano.movieslist.movielist.MovieListViewModel
 import me.alfredobejarano.movieslist.search.MovieSearchViewModel
 
@@ -25,4 +26,9 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(MovieSearchViewModel::class)
     abstract fun bindMovieSearchViewModel(viewModel: MovieSearchViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(MovieDetailsViewModel::class)
+    abstract fun bindMovieMovieDetailsViewModel(viewModel: MovieDetailsViewModel): ViewModel
 }
