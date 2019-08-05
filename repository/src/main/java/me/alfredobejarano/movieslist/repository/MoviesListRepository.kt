@@ -71,17 +71,10 @@ class MoviesListRepository @Inject constructor(
     }?.map(mapper::map) ?: emptyList()
 
     suspend fun findMovieByTitle(query: String) = try {
-        // Find the movies from remote.
-        val resultList =
-            (apiDataSource.searchMovie(query).results?.map(mapper::map) ?: emptyList()) as MutableList<Movie>
-
-        // Then, convert the remote results to a map, this will prevent duplicates from local.
-        (resultList.associateBy { movie -> movie.id } as MutableMap<Int, Movie>).also { map ->
-            movieDaoDataSource.findByTitle(query).forEach { movie ->
-                // Add the local values to the remote result collection
-                map[movie.id] = movie
-            }
-        }.values.toList() // Return the results as list.
+        // Cache the movie results, for offline searches in the future.
+        apiDataSource.searchMovie(query).results?.map(mapper::map)?.apply {
+            forEach { movie -> movieDaoDataSource.createOrUpdate(movie) }
+        } ?: emptyList()
     } catch (e: Exception) {
         // If an error happens with remote, return the local cached values.
         movieDaoDataSource.findByTitle(query)

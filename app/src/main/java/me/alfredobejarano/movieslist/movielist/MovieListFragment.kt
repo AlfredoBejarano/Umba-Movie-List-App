@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.FrameLayout
 import androidx.annotation.AnimRes
@@ -25,6 +26,7 @@ import me.alfredobejarano.movieslist.core.Result
 import me.alfredobejarano.movieslist.databinding.FragmentMovieListBinding
 import me.alfredobejarano.movieslist.di.ViewModelFactory
 import me.alfredobejarano.movieslist.search.MovieSearchFragment
+import me.alfredobejarano.movieslist.utils.hideSoftKeyboard
 import javax.inject.Inject
 
 /**
@@ -77,14 +79,21 @@ class MovieListFragment : Fragment() {
         fetchMovieList(MovieListType.MOVIE_LIST_TOP_RATED)
     }
 
-    private fun setupSearchEditText(editText: EditText) = editText.addTextChangedListener { query ->
-        if (query?.length ?: 0 > SEARCH_QUERY_THRESHOLD) {
-            searchResultFrameLayout.visibility = View.VISIBLE
-            displaySearchResultFragment()
-            navHostViewModel.reportQueryChange(query?.toString() ?: "")
-        } else {
-            hideSearchResultFragment()
-            searchResultFrameLayout.visibility = View.GONE
+    private fun setupSearchEditText(editText: EditText) = editText.run {
+        addTextChangedListener { query ->
+            if (query?.length ?: 0 > 0) {
+                displaySearchResultFragment(query?.toString() ?: "")
+            } else {
+                hideSearchResultFragment()
+            }
+        }
+        setOnEditorActionListener { textView, actionId, _ ->
+            var handled = false
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                hideSoftKeyboard()
+                handled = true
+            }
+            handled
         }
     }
 
@@ -140,14 +149,18 @@ class MovieListFragment : Fragment() {
         view.startAnimation(animation)
     }
 
-    private fun displaySearchResultFragment() {
+    private fun displaySearchResultFragment(query: String) {
+        searchResultFrameLayout.visibility = View.VISIBLE
         requireFragmentManager().beginTransaction()
             .replace(R.id.searchResultsFrameLayout, MovieSearchFragment(), MovieSearchFragment.FRAGMENT_TAG)
             .commit()
+        navHostViewModel.reportQueryChange(query)
     }
 
     private fun hideSearchResultFragment() =
         requireFragmentManager().findFragmentByTag(MovieSearchFragment.FRAGMENT_TAG)?.run {
             requireFragmentManager().beginTransaction().remove(this).commit()
+            searchResultFrameLayout.visibility = View.GONE
+            hideSoftKeyboard()
         }
 }
