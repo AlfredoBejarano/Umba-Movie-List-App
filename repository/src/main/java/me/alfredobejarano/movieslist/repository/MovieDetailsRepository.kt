@@ -53,7 +53,7 @@ class MovieDetailsRepository @Inject constructor(
     /**
      * Retrieves the movie details from the local storage.
      */
-    private suspend fun getMovieDetailsLocal(movieId: Int) = localDaoDataSource.read(movieId)
+    private suspend fun getMovieDetailsLocal(movieId: Int) = localDaoDataSource.read(movieId).first()
 
     /**
      * Retrieves the movie details from the best data source available.

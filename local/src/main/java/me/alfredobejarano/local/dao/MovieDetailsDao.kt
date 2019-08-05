@@ -12,5 +12,5 @@ interface MovieDetailsDao {
     suspend fun createOrUpdate(movieDetails: MovieDetails)
 
     @Query("SELECT * FROM movie_details WHERE pk == :movieId")
-    suspend fun read(movieId: Int): MovieDetails
+    suspend fun read(movieId: Int): List<MovieDetails>
 }
