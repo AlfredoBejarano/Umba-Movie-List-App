@@ -9,8 +9,8 @@ import me.alfredobejarano.movieslist.core.MovieDetails
 @Dao
 interface MovieDetailsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun createOrUpdate(movieDetails: MovieDetails)
+    suspend fun createOrUpdate(movieDetails: MovieDetails)
 
     @Query("SELECT * FROM movie_details WHERE pk == :movieId")
-    fun read(movieId: Int): MovieDetails
+    suspend fun read(movieId: Int): MovieDetails
 }

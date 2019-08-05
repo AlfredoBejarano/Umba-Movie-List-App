@@ -3,7 +3,7 @@ package me.alfredobejarano.movieslist.remote.model
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-data class MovieDetails(
+data class MovieSummary(
     @Expose
     @SerializedName("id")
     val id: Int? = 0,

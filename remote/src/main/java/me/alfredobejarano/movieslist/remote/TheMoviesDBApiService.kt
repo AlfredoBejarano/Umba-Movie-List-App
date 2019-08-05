@@ -1,6 +1,6 @@
 package me.alfredobejarano.movieslist.remote
 
-import me.alfredobejarano.movieslist.remote.model.MovieDetails
+import me.alfredobejarano.movieslist.remote.model.MovieSummary
 import me.alfredobejarano.movieslist.remote.model.MovieVideo
 import me.alfredobejarano.movieslist.remote.model.MoviesListResult
 import retrofit2.http.GET
@@ -46,7 +46,7 @@ interface TheMoviesDBApiService {
      * @param movieId Integer unique identifier for the movie.
      */
     @GET("/movie/{movie_id}")
-    suspend fun getMovieDetails(@Path("movie_id") movieId: Int): MovieDetails
+    suspend fun getMovieDetails(@Path("movie_id") movieId: Int): MovieSummary
 
     /**
      * Retrieves the available videos for a given movie.

@@ -5,11 +5,14 @@ import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import me.alfredobejarano.movieslist.core.Movie
+import me.alfredobejarano.movieslist.core.MovieDetails
 import me.alfredobejarano.movieslist.remote.TheMoviesDBApiAuthInterceptor
 import me.alfredobejarano.movieslist.remote.TheMoviesDBApiService
 import me.alfredobejarano.movieslist.remote.map.Mapper
+import me.alfredobejarano.movieslist.remote.map.MovieDetailsMapper
 import me.alfredobejarano.movieslist.remote.map.MovieResultMapper
 import me.alfredobejarano.movieslist.remote.model.MovieResult
+import me.alfredobejarano.movieslist.remote.model.MovieSummary
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -65,4 +68,7 @@ class RemoteModule(
 
     @Provides
     fun provideMovieResultMapper(): Mapper<MovieResult, Movie> = MovieResultMapper(baseImageURL)
+
+    @Provides
+    fun provideMovieDetailsMapper(): Mapper<MovieSummary, MovieDetails> = MovieDetailsMapper()
 }
