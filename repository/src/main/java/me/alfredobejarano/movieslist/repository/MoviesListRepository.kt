@@ -77,6 +77,6 @@ class MoviesListRepository @Inject constructor(
         } ?: emptyList()
     } catch (e: Exception) {
         // If an error happens with remote, return the local cached values.
-        movieDaoDataSource.findByTitle(query)
+        movieDaoDataSource.findByTitle("%$query%")
     }.sortedWith(compareBy { it.title }) // Sort the movies alphabetically
 }
