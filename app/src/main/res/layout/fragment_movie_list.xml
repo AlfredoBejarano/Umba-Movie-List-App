@@ -86,29 +86,32 @@
                                                     android:orientation="horizontal"
                                                     app:layout_constraintGuide_begin="?attr/actionBarSize"/>
         <EditText
-            android:elevation="5dp"
             android:id="@+id/searchBar"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="@dimen/match_constraints"
+            android:layout_height="@dimen/match_constraints"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:background="@drawable/shape_search_bar"
-            android:drawableEnd="@drawable/ic_search_white_24dp"
+            android:drawableStart="@drawable/ic_search_white_24dp"
+            android:elevation="5dp"
             android:hint="@string/search_for_movies"
             android:imeOptions="actionSearch"
             android:inputType="text"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
-            android:textColor="?android:textColorPrimaryInverse"
-            android:textColorHint="?android:textColorSecondaryInverse"
+            android:drawablePadding="16dp"
+            android:drawableTint="?android:textColorSecondary"
+            android:textColor="?android:textColorPrimary"
+            android:textColorHint="?android:textColorSecondary"
             app:layout_constraintBottom_toTopOf="@+id/searchGuideline"
-            app:layout_constraintEnd_toStartOf="@+id/search_guideline" app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintEnd_toEndOf="@+id/upcomingTitleTextView"
+            app:layout_constraintStart_toStartOf="@+id/upcomingTitleTextView"
+            app:layout_constraintTop_toTopOf="parent" tools:targetApi="m"/>
 
         <androidx.constraintlayout.widget.Guideline android:id="@+id/search_guideline"
                                                     android:layout_width="wrap_content"
                                                     android:layout_height="wrap_content"
                                                     android:orientation="vertical"
-                                                    app:layout_constraintGuide_percent="0.75"/>
+                                                    app:layout_constraintGuide_percent="0.07"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
