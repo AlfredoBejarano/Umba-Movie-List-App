@@ -5,8 +5,8 @@ import com.google.gson.annotations.SerializedName
 
 data class MovieVideoResult(
     @Expose
-    @SerializedName("")
-    val key: String? = "key",
+    @SerializedName("key")
+    val key: String? = "",
     @Expose
     @SerializedName("type")
     val type: String? = "",
