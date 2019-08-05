@@ -19,5 +19,8 @@ class LocalModule(private val app: Application) {
     fun provideMovieListIndexDao() = AppDatabase.getInstance(app).provideMovieListIndexDao()
 
     @Provides
+    fun provideMovieDetailsDao() = AppDatabase.getInstance(app).provideMovieDetailsDao()
+
+    @Provides
     fun provideCacheManager() = CachesLifeManager(app)
 }
