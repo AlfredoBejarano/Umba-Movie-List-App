@@ -4,6 +4,7 @@ import me.alfredobejarano.movieslist.remote.model.MovieResult
 import me.alfredobejarano.movieslist.remote.model.MoviesListResult
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 /**
  * Interface containing all the functions that allow
@@ -39,4 +40,10 @@ interface TheMoviesDBApiService {
      */
     @GET("movie/{movie_id}")
     suspend fun getMovieDetails(@Path("movie_id") movieId: Int): MovieResult
+
+    /**
+     * Searchs for movies with the title matching the given query.
+     */
+    @GET("search/movie")
+    suspend fun searchMovie(@Query("query") query: String): MoviesListResult
 }
