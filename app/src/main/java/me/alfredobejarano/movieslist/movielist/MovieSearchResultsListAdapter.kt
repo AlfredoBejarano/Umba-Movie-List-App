@@ -31,7 +31,7 @@ internal class MovieSearchResultsListAdapter(private var movies: List<Movie>) :
         root.setOnClickListener {
             Log.d("MOVIE", movie?.id?.toString() ?: "")
         }
-        root.startAnimation(AnimationUtils.loadAnimation(root.context, R.anim.slide_in_down))
+        root.startAnimation(AnimationUtils.loadAnimation(root.context, R.anim.slide_in_right))
     }
 
     fun updateList(newMovieList: List<Movie>) {
