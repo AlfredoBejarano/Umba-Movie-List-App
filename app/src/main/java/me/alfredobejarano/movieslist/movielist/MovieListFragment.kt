@@ -5,13 +5,16 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
+import androidx.annotation.AnimRes
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.HORIZONTAL
 import dagger.android.support.AndroidSupportInjection
+import me.alfredobejarano.movieslist.R
 import me.alfredobejarano.movieslist.core.Movie
 import me.alfredobejarano.movieslist.core.MovieListType
 import me.alfredobejarano.movieslist.core.Result
@@ -45,6 +48,8 @@ class MovieListFragment : Fragment() {
         topRatedRecyclerView = setupRecyclerView(topRatedMovieList)
 
         viewModel = ViewModelProviders.of(this@MovieListFragment, factory)[MovieListViewModel::class.java]
+
+        animateView(searchBar, R.anim.slide_in_up)
     }.root
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -83,7 +88,27 @@ class MovieListFragment : Fragment() {
                 } ?: run {
                     adapter = MovieListAdapter(list)
                 }
+                animateView(
+                    this, if (type == MovieListType.MOVIE_LIST_POPULAR) {
+                        R.anim.slide_in_right
+                    } else {
+                        R.anim.slide_in_left
+                    }
+                )
             }
         }
+    }
+
+
+    private fun animateView(view: View, @AnimRes animationRes: Int, onAnimationEnd: () -> Unit = {}) {
+        val animation = AnimationUtils.loadAnimation(requireContext(), animationRes)
+        animation.setAnimationListener(object : Animation.AnimationListener {
+            override fun onAnimationRepeat(p0: Animation?) = Unit
+            override fun onAnimationEnd(p0: Animation?) = onAnimationEnd()
+            override fun onAnimationStart(p0: Animation?) {
+                View.VISIBLE
+            }
+        })
+        view.startAnimation(animation)
     }
 }

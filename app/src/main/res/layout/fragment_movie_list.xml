@@ -4,7 +4,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:animateLayoutChanges="true">
         <androidx.constraintlayout.widget.Guideline android:id="@+id/popularGuideline"
                                                     android:layout_width="wrap_content"
                                                     android:layout_height="wrap_content"
@@ -15,6 +16,7 @@
                                                     android:layout_height="wrap_content"
                                                     android:orientation="horizontal"
                                                     app:layout_constraintGuide_percent="0.69"/>
+
         <TextView
             android:id="@+id/upcomingTitleTextView"
             style="@style/AppTheme.MovieListTitle"
@@ -26,6 +28,18 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/searchGuideline"/>
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/upcomingMovieList"
+            android:layout_width="@dimen/match_constraints"
+            android:layout_height="@dimen/match_constraints"
+            android:layout_margin="@dimen/fragment_movie_list_movie_list_margin"
+            app:layout_constraintBottom_toBottomOf="@+id/popularGuideline"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/upcomingTitleTextView"
+            tools:listitem="@layout/item_movie"/>
+
+
         <TextView
             android:id="@+id/popularTitleTextView"
             style="@style/AppTheme.MovieListTitle"
@@ -36,6 +50,18 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/popularGuideline"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/popularMovieList"
+            android:layout_width="@dimen/match_constraints"
+            android:layout_height="@dimen/match_constraints"
+            android:layout_margin="@dimen/fragment_movie_list_movie_list_margin"
+            app:layout_constraintBottom_toBottomOf="@+id/topRatedGuideline"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/popularTitleTextView"
+            tools:listitem="@layout/item_movie"/>
+
 
         <TextView
             android:id="@+id/topRatedTitleTextView"
@@ -49,28 +75,6 @@
             app:layout_constraintTop_toTopOf="@id/topRatedGuideline"/>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/upcomingMovieList"
-            android:layout_width="@dimen/match_constraints"
-            android:layout_height="@dimen/match_constraints"
-            android:layout_margin="@dimen/fragment_movie_list_movie_list_margin"
-            app:layout_constraintBottom_toBottomOf="@+id/popularGuideline"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/upcomingTitleTextView"
-            tools:listitem="@layout/item_movie"/>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/popularMovieList"
-            android:layout_width="@dimen/match_constraints"
-            android:layout_height="@dimen/match_constraints"
-            android:layout_margin="@dimen/fragment_movie_list_movie_list_margin"
-            app:layout_constraintBottom_toBottomOf="@+id/topRatedGuideline"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/popularTitleTextView"
-            tools:listitem="@layout/item_movie"/>
-
-        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/topRatedMovieList"
             android:layout_width="@dimen/match_constraints"
             android:layout_height="@dimen/match_constraints"
@@ -80,6 +84,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/topRatedTitleTextView"
             tools:listitem="@layout/item_movie"/>
+
         <androidx.constraintlayout.widget.Guideline android:id="@+id/searchGuideline"
                                                     android:layout_width="wrap_content"
                                                     android:layout_height="wrap_content"
@@ -93,14 +98,14 @@
             android:layout_marginBottom="@dimen/fragment_movie_list_search_bar_margin_vertical"
             android:background="@drawable/shape_search_bar"
             android:drawableStart="@drawable/ic_search_white_24dp"
+            android:drawablePadding="@dimen/fragment_movie_list_search_bar_drawable_padding"
+            android:drawableTint="?android:textColorSecondary"
             android:elevation="@dimen/fragment_movie_list_search_bar_elevation"
             android:hint="@string/search_for_movies"
             android:imeOptions="actionSearch"
             android:inputType="text"
             android:paddingStart="@dimen/fragment_movie_list_search_bar_padding_horizontal"
             android:paddingEnd="@dimen/fragment_movie_list_search_bar_padding_horizontal"
-            android:drawablePadding="@dimen/fragment_movie_list_search_bar_drawable_padding"
-            android:drawableTint="?android:textColorSecondary"
             android:textColor="?android:textColorPrimary"
             android:textColorHint="?android:textColorSecondary"
             app:layout_constraintBottom_toTopOf="@+id/searchGuideline"

@@ -2,8 +2,10 @@ package me.alfredobejarano.movieslist.movielist
 
 import android.util.Log
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import me.alfredobejarano.movieslist.R
 import me.alfredobejarano.movieslist.core.Movie
 import me.alfredobejarano.movieslist.databinding.ItemMovieBinding
 import me.alfredobejarano.movieslist.utils.layoutInflater
@@ -29,6 +31,7 @@ internal class MovieListAdapter(private var movies: List<Movie>) :
         root.setOnClickListener {
             Log.d("MOVIE", movie?.id?.toString() ?: "")
         }
+        root.startAnimation(AnimationUtils.loadAnimation(root.context, R.anim.slide_in_down))
     }
 
     fun updateList(newMovieList: List<Movie>) {
