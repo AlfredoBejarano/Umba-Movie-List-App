@@ -141,6 +141,7 @@
 			tools:text="In the latest chapter of MCU's Spider-Man series, our friendly neighborhood superhero"/>
 		
 		<FrameLayout
+			android:id="@+id/movieVideoFrameLayout"
 			android:layout_width="@dimen/match_constraints"
 			android:layout_height="@dimen/match_constraints"
 			app:layout_constraintBottom_toTopOf="@id/movieDetailsGuideline"

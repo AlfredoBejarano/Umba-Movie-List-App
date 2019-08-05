@@ -19,6 +19,7 @@ android {
         versionName "1.0"
         buildConfigField "String", "API_KEY", theMovieDBApiKey
         buildConfigField "String", "BASE_URL", theMovieDBBaseURL
+        buildConfigField "String", "YOUTUBE_API_KEY", youtubeAPIKey
         buildConfigField "String", "POSTER_BASE_URL", theMovieDBImageBaseURl
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

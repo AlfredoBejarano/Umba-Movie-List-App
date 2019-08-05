@@ -9,11 +9,19 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.transition.TransitionInflater
+import com.google.android.youtube.player.YouTubeInitializationResult
+import com.google.android.youtube.player.YouTubePlayer
+import com.google.android.youtube.player.YouTubePlayerSupportFragment
 import dagger.android.support.AndroidSupportInjection
+import me.alfredobejarano.movieslist.BuildConfig
 import me.alfredobejarano.movieslist.core.Result
 import me.alfredobejarano.movieslist.databinding.FragmentMovieDetailsBinding
 import me.alfredobejarano.movieslist.di.ViewModelFactory
 import javax.inject.Inject
+import android.provider.MediaStore.Video.Thumbnails.VIDEO_ID
+import com.google.android.youtube.player.YouTubeStandalonePlayer
+import android.content.Intent
+
 
 class MovieDetailsFragment : Fragment() {
     @Inject
@@ -41,9 +49,36 @@ class MovieDetailsFragment : Fragment() {
 
     private fun getMovieDetails(movieId: Int) = viewModel.getMovieDetails(movieId).observe(this, Observer { result ->
         when (result.status) {
-            Result.Status.OK -> result.payload?.run { dataBinding.movie = this }
+            Result.Status.OK -> result.payload?.run {
+                dataBinding.movie = this
+                dataBinding.movieVideoFrameLayout.setOnClickListener { playYouTubeVideo(videoKey) }
+            }
             Result.Status.ERROR -> Log.d(this.javaClass.name, result.error ?: "")
             Result.Status.LOADING -> Log.d(this.javaClass.name, "Loading")
         }
     })
+
+    private fun playYouTubeVideo(videoKey: String) {
+        dataBinding.movieVideoFrameLayout.removeAllViews()
+        dataBinding.movieVideoFrameLayout.setOnClickListener(null)
+
+        val fragment = YouTubePlayerSupportFragment.newInstance()
+        fragment.initialize(BuildConfig.YOUTUBE_API_KEY, object : YouTubePlayer.OnInitializedListener {
+            override fun onInitializationSuccess(
+                p: YouTubePlayer.Provider?,
+                player: YouTubePlayer?,
+                restored: Boolean
+            ) {
+                if (!restored) {
+                    player?.loadVideo(videoKey)
+                }
+            }
+
+            override fun onInitializationFailure(p0: YouTubePlayer.Provider?, p1: YouTubeInitializationResult?) = Unit
+        })
+
+        requireFragmentManager().beginTransaction()
+            .add(dataBinding.movieVideoFrameLayout.id, fragment, "VIDEO")
+            .commitAllowingStateLoss()
+    }
 }
