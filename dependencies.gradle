@@ -38,6 +38,7 @@ ext {
     ]
 
     app_dependencies = [
+            espresso_rules          : "androidx.test:rules:$test_runner_version",
             core_ktx                : "androidx.core:core-ktx:$core_ktx_version",
             fresco                  : "com.facebook.fresco:fresco:$fresco_version",
             dagger_android          : "com.google.dagger:dagger-android:$dagger_version",
@@ -51,6 +52,7 @@ ext {
             life_cycle_extensions   : "androidx.lifecycle:lifecycle-extensions:$lifecycle_version",
             dagger_android_processor: "com.google.dagger:dagger-android-processor:$dagger_version",
             view_model_ktx          : "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version",
+            espresso_contrib        : "androidx.test.espresso:espresso-contrib:$espresso_core_version",
             constraint_layout       : "androidx.constraintlayout:constraintlayout:$constraint_layout_version",
             youtube                 : "com.github.davidmigloz:youtube-android-player-api-gradle:$youtube_api_version"
     ]

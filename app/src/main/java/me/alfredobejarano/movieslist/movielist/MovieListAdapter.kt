@@ -49,7 +49,7 @@ internal class MovieListAdapter(
     /**
      * Simple [RecyclerView.ViewHolder] class that represents a [Movie] in a [RecyclerView].
      */
-    internal class MovieViewHolder(internal val binding: ItemMovieBinding) :
+    class MovieViewHolder(internal val binding: ItemMovieBinding) :
         RecyclerView.ViewHolder(binding.root)
 
     /**

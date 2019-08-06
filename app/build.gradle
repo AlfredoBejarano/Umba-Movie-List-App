@@ -57,6 +57,8 @@ dependencies {
 
 
     def common_dependencies = rootProject.ext.common_dependencies
+    androidTestImplementation dependencies.espresso_rules
+    androidTestImplementation dependencies.espresso_contrib
     androidTestImplementation common_dependencies.test_runner
     androidTestImplementation common_dependencies.espresso_core
 

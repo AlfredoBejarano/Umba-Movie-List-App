@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import me.alfredobejarano.movieslist.R
 import me.alfredobejarano.movieslist.core.Movie
 import me.alfredobejarano.movieslist.databinding.ItemMovieSearchResultBinding
 import me.alfredobejarano.movieslist.utils.layoutInflater
@@ -20,15 +19,15 @@ internal class MovieSearchResultsListAdapter(
     private var movies: List<Movie>,
     private val onMovieSelected: (Int, View) -> Unit = { movieId, view -> }
 ) :
-    RecyclerView.Adapter<MovieSearchResultsListAdapter.MovieViewHolder>() {
+    RecyclerView.Adapter<MovieSearchResultsListAdapter.MovieSearchResultViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-        MovieViewHolder(
+        MovieSearchResultViewHolder(
             ItemMovieSearchResultBinding.inflate(parent.layoutInflater, parent, false)
         )
 
     override fun getItemCount() = movies.size
 
-    override fun onBindViewHolder(holder: MovieViewHolder, position: Int) = holder.binding.run {
+    override fun onBindViewHolder(holder: MovieSearchResultViewHolder, position: Int) = holder.binding.run {
         movie = movies[position]
         executePendingBindings()
         root.setOnClickListener { onMovieSelected(movie?.id ?: 0, holder.binding.moviePosterSimpleDraweeView) }
@@ -49,7 +48,7 @@ internal class MovieSearchResultsListAdapter(
     /**
      * Simple [RecyclerView.ViewHolder] class that represents a [Movie] in a [RecyclerView].
      */
-    internal class MovieViewHolder(internal val binding: ItemMovieSearchResultBinding) :
+    class MovieSearchResultViewHolder(internal val binding: ItemMovieSearchResultBinding) :
         RecyclerView.ViewHolder(binding.root)
 
     /**

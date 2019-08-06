@@ -18,14 +18,12 @@ import me.alfredobejarano.movieslist.core.Result
 import me.alfredobejarano.movieslist.databinding.FragmentMovieDetailsBinding
 import me.alfredobejarano.movieslist.di.ViewModelFactory
 import javax.inject.Inject
-import android.provider.MediaStore.Video.Thumbnails.VIDEO_ID
-import com.google.android.youtube.player.YouTubeStandalonePlayer
-import android.content.Intent
 
 
 class MovieDetailsFragment : Fragment() {
     @Inject
     lateinit var factory: ViewModelFactory
+    private var videoPlayer: YouTubePlayer? = null
     private lateinit var viewModel: MovieDetailsViewModel
     private lateinit var dataBinding: FragmentMovieDetailsBinding
 
@@ -69,16 +67,26 @@ class MovieDetailsFragment : Fragment() {
                 player: YouTubePlayer?,
                 restored: Boolean
             ) {
+                videoPlayer = player
                 if (!restored) {
-                    player?.loadVideo(videoKey)
+                    videoPlayer?.loadVideo(videoKey)
                 }
             }
 
             override fun onInitializationFailure(p0: YouTubePlayer.Provider?, p1: YouTubeInitializationResult?) = Unit
         })
 
+
+
         requireFragmentManager().beginTransaction()
             .add(dataBinding.movieVideoFrameLayout.id, fragment, "VIDEO")
             .commitAllowingStateLoss()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        if (videoPlayer?.isPlaying == true) {
+            videoPlayer?.pause()
+        }
     }
 }
