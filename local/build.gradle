@@ -35,6 +35,7 @@ dependencies {
     def common_dependencies = rootProject.ext.common_dependencies
 
     testImplementation common_dependencies.junit
+    testImplementation common_dependencies.android_x_junit
     testImplementation common_dependencies.robolectric
     // Needed by Room, to build the in-memory data base necessary for tests.
     testImplementation local_dependencies.livedata

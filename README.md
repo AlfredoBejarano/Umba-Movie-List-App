@@ -7,7 +7,7 @@ Demo app that uses [TheMovideDB V3 API](https://developers.themoviedb.org/3/gett
 
 - This app harness the power of the [Android Architecture components](https://developer.android.com/topic/libraries/architecture) to create a lean, fast and reliable app.
 
-- This app offers a clean, layered architecture while keeping it simple, the `model` classes are transparent across the architecture, the `repository` classes provide a clean API and a single source of truth from all the app `data sources` for the rest of the layers in the app. The `ViewModel` classes serves as intermediaries between the `view` (UI Controllers) and the `repository` layers, provides clean and immutable observation via `LiveData` and reacts accordingly to the app's lifecycle.
+- This app offers a clean, layered architecture while keeping it simple, the `model` classes are transparent across the architecture, the `repository` classes provide a clean API and a single source of truth from all the app `data sources` for the rest of the layers in the app. The `Presenter` classes serves as intermediaries between the `view` (UI Controllers) and the `repository` layers, provides clean and immutable observation via `LiveData` and reacts accordingly to the app's lifecycle.
 
 - It also uses the good practices accepted from Google, such as _Dependency Injection_ using **Dagger** and using the _Observation_ pattern. The app architecture is **M**odel**V**iew**V**iew**M**odel (_MVVM from now on_).
 
@@ -15,13 +15,12 @@ Demo app that uses [TheMovideDB V3 API](https://developers.themoviedb.org/3/gett
 
 # How the app is built?
 
-As said before, **MovieList app** is based upon the Sunflower MVVM architecture with an added layer for business logic, each layer being separated into a module, it looks as follows:
-
-![app-arch](https://i.ibb.co/Y0pLk65/Arquitectura-MVVM.jpg)
-
 All the layers dependencies are satisfied using *Dependency Injection* (_DI from now on_) using **Dagger**.
 
 The idea of separate layers and module is to maintain the **single responsibility principle**.
+
+As said before, **MovieList app** is using the MVP architecture using some of the Architecture Components from Google (like Lifecycle) to better attach the presenter classes to the View's lifecyles.
+Each layer being separated into a module, it looks as follows:
 
 # Modules
 - App
@@ -29,7 +28,7 @@ The idea of separate layers and module is to maintain the **single responsibilit
   - Safe Args
   - Activity
   - Fragments
-  - ViewModel
+  - Presenters
 - Domain
   - Use Cases
 - Repository
@@ -47,7 +46,7 @@ The idea of separate layers and module is to maintain the **single responsibilit
 This section will explain the idea behind each module:
 
 ## App
-The app module contains the UI elements of the app itself. Such as the NavHostActivity and the Fragment destinations (and their respective ViewModels) it also contains the drawable resources and strings.
+The app module contains the UI elements of the app itself. Such as the NavHostActivity and the Fragment destinations (and their respective Presenters) it also contains the drawable resources and strings.
 
 ## Domain
 This layer defines use case classes. Classes that performs computation using data from the repository layers and report the data for the UI classes (in other words, business logic).
@@ -69,6 +68,22 @@ truth for the app. Also, UI-driven models should be used as the entities as well
 the local data source should be the one providing the true data using caches, so the models in this module use **Room
 annotations**, To prevent Room classes from leaking to other layers, this module is a pure **Java** module, so only
 the Room annotations are set as a dependency and the unnecessary classes such as DAO or Database are not added / leaked.
+
+# Wait, are those commits FROM 2 YEARS AGO?
+
+Yes. And I'll explain why.
+
+This repository is a technical test for applying to Umba, a Fintech startup from Africa. I made this technical challenge before a year and a half ago (in August 2019) using a different architecture pattern (MVVM) and using some old code techniques I had.
+Technical challenges for applying to jobs are fun and highlight what a developer can do, yet, I think some other points like how good a developer code will escalate or how maintainable said developers code will be. I want to highlight those skills as well
+and I saw the old repo it as an opportunity to demostrate how scalable and maintainable my code is.
+
+## Reasons I chose to change an old repo:
+
+- The deadline. I had four days to complete the challenge. I already had a codebase that did almost what the challenge was requiring, If I started from scratch, I would deliver something similar as this but in well, 4 days. Applying tweaks and changes to my code took me around 4 hours.
+
+- How much I've grown. Learning in the software development industry never ends, I also want to highlight how much I've improved in a year and a half. How much my coding skills had matured. I'm an android nerd, I devour all the google talks and Android Developers channel youtube videos and I love learning.
+
+- The scalability and maintainability of my code. The code I've wrote was far from perfect, but yet, something as deep as migrating from an architecture pattern (MVVM) to another (MVP) or updating outdated (like, very outdated) dependencies into newer versions was a breeze, a few bugs were also in the original code base and those were easily debuggable and fixed, testing newly added classes was a breeze as well. What I want to show is that the code I write matures quite well, When I write software, my priorities are performance and maintainability. Those skills are hard to show in a technical challenge as those code base usually end up forgotten by the developer.
 
 
 # The single responsibility principle
