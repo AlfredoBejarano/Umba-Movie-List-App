@@ -2,31 +2,22 @@ package me.alfredobejarano.movieslist.search
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import dagger.android.support.AndroidSupportInjection
-import me.alfredobejarano.movieslist.NavHostViewModel
 import me.alfredobejarano.movieslist.R
+import me.alfredobejarano.movieslist.base.BaseFragment
 import me.alfredobejarano.movieslist.core.Movie
-import me.alfredobejarano.movieslist.di.ViewModelFactory
+import me.alfredobejarano.movieslist.movielist.MovieListFragment
+import me.alfredobejarano.movieslist.utils.SearchUiHandlerOwner
 import me.alfredobejarano.movieslist.utils.observeWith
 import me.alfredobejarano.movieslist.utils.openMovieDetails
-import javax.inject.Inject
 
-class MovieSearchFragment : Fragment() {
+class MovieSearchFragment : BaseFragment<MovieSearchPresenter>(),
+    MovieListFragment.OnQueryChangeListener {
     companion object {
         const val FRAGMENT_TAG = "search_results"
     }
-
-    @Inject
-    lateinit var factory: ViewModelFactory
-
-    private lateinit var viewModel: MovieSearchViewModel
-    private lateinit var navHostViewModel: NavHostViewModel
 
     private lateinit var searchListRecyclerView: RecyclerView
 
@@ -36,27 +27,12 @@ class MovieSearchFragment : Fragment() {
         savedInstanceState: Bundle?
     ) = RecyclerView(requireContext()).apply {
         id = R.id.searchResultsList
-
         layoutManager = LinearLayoutManager(context)
         searchListRecyclerView = this
-
-        AndroidSupportInjection.inject(this@MovieSearchFragment)
-
-        navHostViewModel = ViewModelProvider(requireActivity())[NavHostViewModel::class.java]
-        viewModel = ViewModelProvider(
-            this@MovieSearchFragment,
-            factory
-        )[MovieSearchViewModel::class.java]
+        (requireActivity() as? SearchUiHandlerOwner)?.onSearchUiReady()
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        navHostViewModel.searchQueryLiveData.observe(
-            viewLifecycleOwner,
-            { query -> searchMovie(query ?: "") })
-    }
-
-    private fun searchMovie(query: String) = viewModel.searchMovieByTitle(query).observeWith(
+    private fun searchMovie(query: String) = presenter.searchMovieByTitle(query).observeWith(
         owner = viewLifecycleOwner,
         onSuccess = ::renderMovieSearchResult,
         onError = {}
@@ -68,7 +44,10 @@ class MovieSearchFragment : Fragment() {
         } ?: run {
             searchListRecyclerView.adapter =
                 MovieSearchResultsListAdapter(list) { movieId, view ->
+                    (requireActivity() as? SearchUiHandlerOwner)?.onSearchUiNavigation()
                     openMovieDetails(movieId, view)
                 }
         }
+
+    override fun onQueryChanged(query: String) = searchMovie(query)
 }

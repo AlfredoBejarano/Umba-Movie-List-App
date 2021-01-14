@@ -19,7 +19,6 @@ import javax.inject.Singleton
         UiModule::class,
         LocalModule::class,
         RemoteModule::class,
-        ViewModelModule::class,
         AndroidInjectionModule::class,
         AndroidSupportInjectionModule::class
     ]
