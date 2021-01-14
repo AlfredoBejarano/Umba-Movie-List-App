@@ -81,9 +81,9 @@ and I saw the old repo it as an opportunity to demostrate how scalable and maint
 
 - The deadline. I had four days to complete the challenge. I already had a codebase that did almost what the challenge was requiring, If I started from scratch, I would deliver something similar as this but in well, 4 days. Applying tweaks and changes to my code took me around 4 hours.
 
-- How much I've grown. Learning in the software development industry never ends, I also want to highlight how much I've improved in a year and a half. How much my coding skills had matured. I'm an android nerd, I devour all the google talks and Android Developers channel youtube videos and I love learning.
-
 - The scalability and maintainability of my code. The code I've wrote was far from perfect, but yet, something as deep as migrating from an architecture pattern (MVVM) to another (MVP) or updating outdated (like, very outdated) dependencies into newer versions was a breeze, a few bugs were also in the original code base and those were easily debuggable and fixed, testing newly added classes was a breeze as well. What I want to show is that the code I write matures quite well, When I write software, my priorities are performance and maintainability. Those skills are hard to show in a technical challenge as those code base usually end up forgotten by the developer.
+
+- How much I've grown. Learning in the software development industry never ends, I also want to highlight how much I've improved in a year and a half. How much my coding skills had matured. I'm an android nerd, I devour all the google talks and Android Developers channel youtube videos and I love learning.
 
 
 # The single responsibility principle
