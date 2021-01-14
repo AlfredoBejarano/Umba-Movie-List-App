@@ -3,6 +3,7 @@ package me.alfredobejarano.movieslist.domain
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import me.alfredobejarano.movieslist.core.Movie
+import me.alfredobejarano.movieslist.core.Result
 import me.alfredobejarano.movieslist.repository.MoviesListRepository
 import org.junit.Before
 import org.junit.Test
@@ -32,7 +33,7 @@ class SearchMovieByTitleUseCaseTest {
                 .thenReturn(mockList)
 
             val result = testSubject.searchMovieByTitle(query)
-            assert(result.payload?.isNotEmpty() == true)
+            assert(result is Result.Success && result.data.isNotEmpty())
         }
     }
 
@@ -45,7 +46,7 @@ class SearchMovieByTitleUseCaseTest {
                 .thenThrow(Exception("Error"))
 
             val result = testSubject.searchMovieByTitle(query)
-            assert(result.error?.isNotEmpty() == true)
+            assert(result is Result.Error)
         }
     }
 }

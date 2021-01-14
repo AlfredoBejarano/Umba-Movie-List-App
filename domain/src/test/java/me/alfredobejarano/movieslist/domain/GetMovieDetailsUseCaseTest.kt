@@ -4,6 +4,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import me.alfredobejarano.movieslist.core.Movie
 import me.alfredobejarano.movieslist.core.MovieDetails
+import me.alfredobejarano.movieslist.core.Result
 import me.alfredobejarano.movieslist.repository.MovieDetailsRepository
 import me.alfredobejarano.movieslist.repository.MoviesListRepository
 import org.junit.Before
@@ -16,8 +17,10 @@ import org.mockito.junit.MockitoJUnitRunner
 @RunWith(MockitoJUnitRunner::class)
 class GetMovieDetailsUseCaseTest {
     private lateinit var testSubject: GetMovieDetailsUseCase
+
     @Mock
     private lateinit var mockMoviesListRepository: MoviesListRepository
+
     @Mock
     private lateinit var mockMovieDetailsRepository: MovieDetailsRepository
 
@@ -36,7 +39,7 @@ class GetMovieDetailsUseCaseTest {
 
             val resource = testSubject.getMovieDetails(mockMovieId)
 
-            assert(resource.payload == mockMovieDetails)
+            assert(resource is Result.Success && resource.data == mockMovieDetails)
         }
     }
 
@@ -54,7 +57,7 @@ class GetMovieDetailsUseCaseTest {
 
             val resource = testSubject.getMovieDetails(mockMovieId)
 
-            assert(resource.payload == mockMovieDetails)
+            assert(resource is Result.Success && resource.data == mockMovieDetails)
         }
     }
 
@@ -71,7 +74,7 @@ class GetMovieDetailsUseCaseTest {
 
             val resource = testSubject.getMovieDetails(mockMovieId)
 
-            assert(resource.error == mockErrorMessage)
+            assert(resource is Result.Error)
         }
     }
 }

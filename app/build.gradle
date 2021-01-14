@@ -67,6 +67,11 @@ dependencies {
     androidTestImplementation common_dependencies.test_runner
     androidTestImplementation common_dependencies.espresso_core
 
+    testImplementation common_dependencies.junit
+    testImplementation common_dependencies.mockito
+    testImplementation common_dependencies.lifecycle_test
+    testImplementation common_dependencies.coroutines_test
+
     implementation project(':core')
     implementation project(':local')
     implementation project(':domain')
