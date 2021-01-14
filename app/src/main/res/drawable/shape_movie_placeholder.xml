@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <corners android:radius="@dimen/item_movie_poster_corner_radius"/>
-    <gradient android:angle="45" android:endColor="@color/colorAccent" android:startColor="#299ae9"/>
+	<corners android:radius="@dimen/item_movie_poster_corner_radius" />
+	<gradient
+		android:angle="45"
+		android:endColor="?android:attr/colorPrimaryDark"
+		android:startColor="?android:attr/colorPrimary" />
 </shape>

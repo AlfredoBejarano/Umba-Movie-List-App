@@ -41,6 +41,10 @@ import javax.inject.Inject
  * Created by alfredo on 2019-08-02.
  */
 class MovieListFragment : Fragment() {
+    private companion object {
+        const val SEARCH_SCRIM_ALPHA = (256 * 0.8).toInt()
+    }
+
     @Inject
     lateinit var factory: ViewModelFactory
     private val binding by viewBinding(FragmentMovieListBinding::inflate)
@@ -69,6 +73,8 @@ class MovieListFragment : Fragment() {
         navHostViewModel.closeSearchViewLiveData.observe(viewLifecycleOwner, {
             hideSearchResultFragment()
         })
+
+        binding.searchResultsFrameLayout.background.alpha = SEARCH_SCRIM_ALPHA
 
         animateView(binding.searchBar, R.anim.slide_in_up) {
             setupSearchEditText(binding.searchBar)
