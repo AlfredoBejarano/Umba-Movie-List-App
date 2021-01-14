@@ -95,7 +95,7 @@
 			android:text="@{movie.rating}"
 			android:textColor="?android:attr/textColorTertiary"
 			android:textSize="12sp"
-			app:drawableStartCompat="@drawable/ic_favorite_border_accent_24dp"
+			app:drawableStartCompat="@drawable/ic_liked_accent_24"
 			app:drawableTint="?android:colorAccent"
 			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintEnd_toStartOf="@+id/dateGuideline"
