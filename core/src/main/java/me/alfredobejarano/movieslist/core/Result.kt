@@ -7,16 +7,8 @@ package me.alfredobejarano.movieslist.core
  *
  * Created by alfredo on 2019-08-02.
  */
-class Result<T> private constructor(
-    val payload: T? = null,
-    val error: String? = null,
-    val status: Status
-) {
-    companion object {
-        fun <T> success(payload: T) = Result(payload, null, Status.OK)
-        fun <T> loading() = Result<T>(null, null, Status.LOADING)
-        fun <T> error(message: String?) = Result<T>(null, message, Status.ERROR)
-    }
-
-    enum class Status { OK, ERROR, LOADING }
+sealed class Result<out T : Any> {
+    object Loading : Result<Nothing>()
+    data class Success<out T : Any>(val data: T) : Result<T>()
+    data class Error(val exception: Exception) : Result<Nothing>()
 }

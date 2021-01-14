@@ -17,7 +17,7 @@ class GetMovieDetailsUseCase @Inject constructor(
      *
      * @param movieId ID of the movie to retrieve its details.
      */
-    suspend fun getMovieDetails(movieId: Int) = interact {
+    suspend fun getMovieDetails(movieId: Int) = useCaseExecution {
         try {
             movieDetailsRepository.getMovieDetails(movieId)
         } catch (e: Exception) {

@@ -52,7 +52,7 @@
 			android:layout_marginStart="@dimen/item_movie_search_result_margin_start"
 			android:layout_marginEnd="@dimen/item_movie_search_result_margin_start"
 			android:text="@{movie.releaseDate}"
-			android:textColor="@color/colorTextSecondary"
+			android:textColor="?android:attr/textColorSecondary"
 			android:textSize="@dimen/item_movie_search_result_date_text_size"
 			android:textStyle="italic"
 			app:layout_constraintBottom_toBottomOf="@+id/moviePosterSimpleDraweeView"

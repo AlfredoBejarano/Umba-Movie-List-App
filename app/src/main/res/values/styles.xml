@@ -1,19 +1,8 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:textColorPrimary">@color/colorTextPrimary</item>
-        <item name="android:textColorSecondary">@color/colorTextSecondary</item>
-
-        <item name="android:textColorPrimaryInverse">@color/colorTextPrimaryInverse</item>
-        <item name="android:textColorSecondaryInverse">@color/colorTextSecondaryInverse</item>
-
-        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:fontFamily">@font/nunito_sans</item>
-        <item name="android:windowBackground">@drawable/shape_window_background</item>
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorAccent">@color/colorAccent</item>fra
     </style>
 
     <style name="AppTheme.MovieListTitle">

@@ -2,19 +2,17 @@ apply plugin: 'com.android.application'
 
 apply plugin: 'kotlin-android'
 
-apply plugin: 'kotlin-android-extensions'
-
 apply plugin: 'kotlin-kapt'
 
 apply plugin: "androidx.navigation.safeargs.kotlin"
 
 android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.0"
+    compileSdkVersion 30
+    buildToolsVersion '30.0.3'
     defaultConfig {
         applicationId "me.alfredobejarano.movieslist"
         minSdkVersion 21
-        targetSdkVersion 29
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
         buildConfigField "String", "API_KEY", theMovieDBApiKey
@@ -35,6 +33,10 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
@@ -46,8 +48,11 @@ dependencies {
     implementation dependencies.core_ktx
     implementation dependencies.app_compat
     implementation dependencies.nav_fragment
+    implementation dependencies.lifecycle_common
     implementation dependencies.recycler_view
     implementation dependencies.view_model_ktx
+    implementation dependencies.live_data_extensions
+    implementation dependencies.view_model_extensions
     kapt dependencies.dagger_android_processor
     implementation dependencies.dagger_android
     implementation dependencies.material_version

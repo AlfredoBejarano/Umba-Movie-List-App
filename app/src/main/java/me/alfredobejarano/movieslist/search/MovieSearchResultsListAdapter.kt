@@ -17,7 +17,7 @@ import me.alfredobejarano.movieslist.utils.layoutInflater
  */
 internal class MovieSearchResultsListAdapter(
     private var movies: List<Movie>,
-    private val onMovieSelected: (Int, View) -> Unit = { movieId, view -> }
+    private val onMovieSelected: (Int, View) -> Unit = { _, _ -> }
 ) :
     RecyclerView.Adapter<MovieSearchResultsListAdapter.MovieSearchResultViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
@@ -27,19 +27,21 @@ internal class MovieSearchResultsListAdapter(
 
     override fun getItemCount() = movies.size
 
-    override fun onBindViewHolder(holder: MovieSearchResultViewHolder, position: Int) = holder.binding.run {
-        movie = movies[position]
-        executePendingBindings()
-        root.setOnClickListener { onMovieSelected(movie?.id ?: 0, holder.binding.moviePosterSimpleDraweeView) }
-        root.startAnimation(AnimationUtils.loadAnimation(root.context, android.R.anim.fade_in))
-    }
+    override fun onBindViewHolder(holder: MovieSearchResultViewHolder, position: Int) =
+        holder.binding.run {
+            movie = movies[position]
+            executePendingBindings()
+            root.setOnClickListener {
+                onMovieSelected(
+                    movie?.id ?: 0,
+                    holder.binding.moviePosterSimpleDraweeView
+                )
+            }
+            root.startAnimation(AnimationUtils.loadAnimation(root.context, android.R.anim.fade_in))
+        }
 
     fun updateList(newMovieList: List<Movie>) {
-        val callback =
-            MovieCallback(
-                movies,
-                newMovieList
-            )
+        val callback = MovieCallback(movies, newMovieList)
         val diff = DiffUtil.calculateDiff(callback)
         diff.dispatchUpdatesTo(this)
         movies = newMovieList

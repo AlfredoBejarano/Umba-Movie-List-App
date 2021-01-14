@@ -3,14 +3,14 @@ package me.alfredobejarano.movieslist.domain
 import me.alfredobejarano.movieslist.core.Result
 
 /**
- * Top-level function that helps catching HTTP or Local Exceptions
- * from executing calls from the repository.
+ * Runs a given block of code that should return any processing from (or using data from) one or
+ * many repository classes.
  *
- * Created by alfredo on 2019-08-02.
+ * Any errors will be catch and returned via the [Result] class.
  */
-internal suspend fun <T> interact(suspendWork: suspend () -> T): Result<out T> = try {
+internal suspend fun <T : Any> useCaseExecution(suspendWork: suspend () -> T): Result<T> = try {
     val payload = suspendWork()
-    Result.success(payload)
+    Result.Success(payload)
 } catch (e: Exception) {
-    Result.error(e.localizedMessage)
+    Result.Error(e)
 }

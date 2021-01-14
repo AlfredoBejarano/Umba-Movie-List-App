@@ -18,7 +18,7 @@ import me.alfredobejarano.movieslist.utils.layoutInflater
  */
 internal class MovieListAdapter(
     private var movies: List<Movie>,
-    private val onMovieSelected: (Int, View) -> Unit = { movieId, view -> }
+    private val onMovieSelected: (Int, View) -> Unit = { _, _ -> }
 ) :
     RecyclerView.Adapter<MovieListAdapter.MovieViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =

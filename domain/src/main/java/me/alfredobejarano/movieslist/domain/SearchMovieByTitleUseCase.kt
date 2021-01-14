@@ -7,7 +7,7 @@ class SearchMovieByTitleUseCase @Inject constructor(private val repository: Movi
     /**
      * Searches in both local and remote data sources for movies that better match the query in its title.
      */
-    suspend fun searchMovieByTitle(query: String) = interact {
+    suspend fun searchMovieByTitle(query: String) = useCaseExecution {
         repository.findMovieByTitle(query)
     }
 }

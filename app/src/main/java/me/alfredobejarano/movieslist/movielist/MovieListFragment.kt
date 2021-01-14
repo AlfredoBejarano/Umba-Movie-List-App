@@ -9,27 +9,30 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
-import android.widget.FrameLayout
 import androidx.annotation.AnimRes
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.fragment.FragmentNavigatorExtras
-import androidx.navigation.fragment.findNavController
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.android.support.AndroidSupportInjection
 import me.alfredobejarano.movieslist.NavHostViewModel
 import me.alfredobejarano.movieslist.R
+import me.alfredobejarano.movieslist.R.anim.slide_in_left
+import me.alfredobejarano.movieslist.R.anim.slide_in_right
+import me.alfredobejarano.movieslist.R.id.searchResultsFrameLayout
 import me.alfredobejarano.movieslist.core.Movie
 import me.alfredobejarano.movieslist.core.MovieListType
-import me.alfredobejarano.movieslist.core.Result
+import me.alfredobejarano.movieslist.core.MovieListType.MOVIE_LIST_POPULAR
 import me.alfredobejarano.movieslist.databinding.FragmentMovieListBinding
 import me.alfredobejarano.movieslist.di.ViewModelFactory
 import me.alfredobejarano.movieslist.search.MovieSearchFragment
+import me.alfredobejarano.movieslist.search.MovieSearchFragment.Companion.FRAGMENT_TAG
 import me.alfredobejarano.movieslist.utils.hideSoftKeyboard
+import me.alfredobejarano.movieslist.utils.isLoading
+import me.alfredobejarano.movieslist.utils.observeWith
 import me.alfredobejarano.movieslist.utils.openMovieDetails
+import me.alfredobejarano.movieslist.utils.viewBinding
 import javax.inject.Inject
 
 /**
@@ -40,39 +43,38 @@ import javax.inject.Inject
 class MovieListFragment : Fragment() {
     @Inject
     lateinit var factory: ViewModelFactory
+    private val binding by viewBinding(FragmentMovieListBinding::inflate)
 
     private lateinit var viewModel: MovieListViewModel
     private lateinit var navHostViewModel: NavHostViewModel
 
-    private lateinit var searchResultFrameLayout: FrameLayout
-
-    private lateinit var popularRecyclerView: RecyclerView
-    private lateinit var topRatedRecyclerView: RecyclerView
-    private lateinit var upcomingRecyclerView: RecyclerView
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedState: Bundle?
-    ) = FragmentMovieListBinding.inflate(inflater, container, false).apply {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         AndroidSupportInjection.inject(this@MovieListFragment)
+    }
 
-        popularRecyclerView = setupRecyclerView(popularMovieList)
-        upcomingRecyclerView = setupRecyclerView(upcomingMovieList)
-        topRatedRecyclerView = setupRecyclerView(topRatedMovieList)
-
-        searchResultFrameLayout = searchResultsFrameLayout
-        navHostViewModel = ViewModelProviders.of(requireActivity())[NavHostViewModel::class.java]
-        viewModel = ViewModelProviders.of(this@MovieListFragment, factory)[MovieListViewModel::class.java]
-
-        animateView(searchBar, R.anim.slide_in_up) {
-            setupSearchEditText(searchBar)
-        }
-    }.root
+    override fun onCreateView(inflater: LayoutInflater, parent: ViewGroup?, state: Bundle?) =
+        binding.root
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        fetchMovieList(MovieListType.MOVIE_LIST_POPULAR)
+
+        setupRecyclerView(binding.popularMovieList)
+        setupRecyclerView(binding.upcomingMovieList)
+        setupRecyclerView(binding.topRatedMovieList)
+
+        viewModel = ViewModelProvider(this, factory)[MovieListViewModel::class.java]
+        navHostViewModel = ViewModelProvider(requireActivity())[NavHostViewModel::class.java]
+
+        navHostViewModel.closeSearchViewLiveData.observe(viewLifecycleOwner, {
+            hideSearchResultFragment()
+        })
+
+        animateView(binding.searchBar, R.anim.slide_in_up) {
+            setupSearchEditText(binding.searchBar)
+        }
+
+        fetchMovieList(MOVIE_LIST_POPULAR)
         fetchMovieList(MovieListType.MOVIE_LIST_UPCOMING)
         fetchMovieList(MovieListType.MOVIE_LIST_TOP_RATED)
     }
@@ -100,18 +102,14 @@ class MovieListFragment : Fragment() {
     }
 
     private fun fetchMovieList(listType: MovieListType) =
-        viewModel.getMovieList(listType).observe(this, Observer { result ->
-            when (result.status) {
-                Result.Status.LOADING -> Log.d(this.javaClass.name, "Loading")
-                Result.Status.OK -> renderMovieList(result.payload ?: emptyList(), listType)
-                Result.Status.ERROR -> Log.d(this.javaClass.name, result.error ?: "Error")
-            }
-        })
+        viewModel.getMovieList(listType).observeWith(viewLifecycleOwner, binding::isLoading, {
+            renderMovieList(this, listType)
+        }, {})
 
     private fun movieListRecyclerViewFactory(type: MovieListType) = when (type) {
-        MovieListType.MOVIE_LIST_POPULAR -> popularRecyclerView
-        MovieListType.MOVIE_LIST_UPCOMING -> upcomingRecyclerView
-        MovieListType.MOVIE_LIST_TOP_RATED -> topRatedRecyclerView
+        MOVIE_LIST_POPULAR -> binding.popularMovieList
+        MovieListType.MOVIE_LIST_UPCOMING -> binding.upcomingMovieList
+        MovieListType.MOVIE_LIST_TOP_RATED -> binding.topRatedMovieList
     }
 
     private fun renderMovieList(list: List<Movie>, type: MovieListType) {
@@ -119,46 +117,48 @@ class MovieListFragment : Fragment() {
             Log.d(this.javaClass.name, "Empty List")
         } else {
             movieListRecyclerViewFactory(type).run {
-                adapter?.let { adapter ->
-                    (adapter as? MovieListAdapter)?.updateList(list)
-                } ?: run {
-                    adapter = MovieListAdapter(list) { movieId, view -> openMovieDetails(movieId, view) }
-                }
-                animateView(
-                    this, if (type == MovieListType.MOVIE_LIST_POPULAR) {
-                        R.anim.slide_in_right
-                    } else {
-                        R.anim.slide_in_left
-                    }
-                )
+                updateMovieAdapter(list)
+                animateView(this, if (type == MOVIE_LIST_POPULAR) slide_in_right else slide_in_left)
             }
         }
     }
 
-    private fun animateView(view: View, @AnimRes animationRes: Int, onAnimationEnd: () -> Unit = {}) {
-        val animation = AnimationUtils.loadAnimation(requireContext(), animationRes)
+    private fun RecyclerView.updateMovieAdapter(list: List<Movie>) = adapter?.let { adapter ->
+        (adapter as? MovieListAdapter)?.updateList(list) ?: createMovieAdapter(list)
+    } ?: run {
+        createMovieAdapter(list)
+    }
+
+    private fun RecyclerView.createMovieAdapter(list: List<Movie>) {
+        adapter = MovieListAdapter(list, ::openMovieDetails)
+    }
+
+    private fun animateView(view: View, @AnimRes resId: Int, onAnimationEnd: () -> Unit = {}) {
+        val animation = AnimationUtils.loadAnimation(requireContext(), resId)
         animation.setAnimationListener(object : Animation.AnimationListener {
-            override fun onAnimationRepeat(p0: Animation?) = Unit
-            override fun onAnimationEnd(p0: Animation?) = onAnimationEnd()
-            override fun onAnimationStart(p0: Animation?) {
-                View.VISIBLE
-            }
+            override fun onAnimationStart(anim: Animation?) = Unit
+            override fun onAnimationRepeat(anim: Animation?) = Unit
+            override fun onAnimationEnd(anim: Animation?) = onAnimationEnd()
         })
         view.startAnimation(animation)
     }
 
     private fun displaySearchResultFragment(query: String) {
-        searchResultFrameLayout.visibility = View.VISIBLE
+        binding.searchResultsFrameLayout.visibility = View.VISIBLE
         navHostViewModel.reportQueryChange(query)
-        requireFragmentManager().beginTransaction()
-            .replace(R.id.searchResultsFrameLayout, MovieSearchFragment(), MovieSearchFragment.FRAGMENT_TAG)
-            .commit()
+        parentFragmentManager.beginTransaction().replace(
+            searchResultsFrameLayout, MovieSearchFragment(),
+            FRAGMENT_TAG
+        ).commit()
+        navHostViewModel.searchViewIsOpen = true
     }
 
     private fun hideSearchResultFragment() =
-        requireFragmentManager().findFragmentByTag(MovieSearchFragment.FRAGMENT_TAG)?.run {
-            requireFragmentManager().beginTransaction().remove(this).commit()
-            searchResultFrameLayout.visibility = View.GONE
+        parentFragmentManager.findFragmentByTag(FRAGMENT_TAG)?.run {
+            parentFragmentManager.beginTransaction().remove(this).commit()
+            binding.searchResultsFrameLayout.visibility = View.GONE
             hideSoftKeyboard()
+            binding.searchBar.text.clear()
+            navHostViewModel.searchViewIsOpen = false
         }
 }

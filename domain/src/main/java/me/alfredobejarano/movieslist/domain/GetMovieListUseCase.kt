@@ -10,7 +10,7 @@ import javax.inject.Inject
  * Created by alfredo on 2019-08-02.
  */
 class GetMovieListUseCase @Inject constructor(private val repository: MoviesListRepository) {
-    suspend fun getMovieList(type: MovieListType) = interact {
+    suspend fun getMovieList(type: MovieListType) = useCaseExecution {
         repository getMoviesListBy type
     }
 }

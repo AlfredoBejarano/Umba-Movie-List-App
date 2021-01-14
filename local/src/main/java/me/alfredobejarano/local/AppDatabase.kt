@@ -19,7 +19,7 @@ import me.alfredobejarano.movieslist.core.MovieDetails
  */
 @Database(
     entities = [Movie::class, MovieListIndex::class, MovieDetails::class],
-    version = BuildConfig.VERSION_CODE,
+    version = 1,
     exportSchema = false
 )
 @TypeConverters(IntListTypeConverter::class, StringListTypeConverter::class)
@@ -38,7 +38,7 @@ abstract class AppDatabase : RoomDatabase() {
         private fun createInstance(ctx: Context) =
             Room.databaseBuilder(
                 ctx, AppDatabase::class.java,
-                "${BuildConfig.APPLICATION_ID}.database"
+                "${BuildConfig.LIBRARY_PACKAGE_NAME}.database"
             ).fallbackToDestructiveMigration().build()
     }
 }
