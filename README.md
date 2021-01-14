@@ -1,5 +1,5 @@
 # MovieList App
-<img width="160" height="160" alt="app_icon" src="./app/src/main/ic_launcher-web.png">
+<img width="160" height="160" alt="app_icon" src="./app/src/main/ic_launcher-playstore.png">
 
 Demo app that uses [TheMovideDB V3 API](https://developers.themoviedb.org/3/getting-started/introduction) to fetch some lists describing the upcoming, popular and top rated movies in their database. The user can also search for a movie and choose a movie (from any of the lists or a search result) to see its details, such as its runtime, the overview, the amount of votes and a trailer video (if available).
 
