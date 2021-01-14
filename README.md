@@ -111,10 +111,10 @@ In order to run the project, you are going to need a **gradle.properties** file.
     # Kotlin code style for this project: "official" or "obsolete":  
     kotlin.code.style=official  
     # TheMovieDB API key  
-    theMovieDBApiKey="Your TheMovieDB V3 API key"  
+    theMovieDBApiKey="841fe808855945f7b06ccb3d5a20e7ea"
     # TheMovieDB Base URL  
     theMovieDBBaseURL="https://api.themoviedb.org/3/"  
     # TheMovieDB Images base URLs  
     theMovieDBImageBaseURl="http://image.tmdb.org/t/p/w500"  
     # YouTube API Key  
-    youtubeAPIKey="Your Google Developer Console API key"
+    youtubeAPIKey="AIzaSyDNzu8UkpQnf_LhoPZbmgTrtLuRM3iDe2g"
