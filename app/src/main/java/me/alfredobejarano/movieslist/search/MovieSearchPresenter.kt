@@ -7,8 +7,14 @@ import javax.inject.Inject
 
 class MovieSearchPresenter @Inject constructor(
     private val searchMovieByTitleUseCase: SearchMovieByTitleUseCase
-): BasePresenter {
-    fun searchMovieByTitle(query: String) = resultLiveData() {
+) : BasePresenter() {
+
+    /**
+     * Searches movies that their titles matches the given query text.
+     *
+     * @param query The text to use as the query.
+     */
+    fun searchMovieByTitle(query: String) = resultLiveData {
         searchMovieByTitleUseCase.searchMovieByTitle(query)
     }
 }

@@ -7,5 +7,7 @@
 	<string name="search_for_movies">Search for movies</string>
 	<string name="runtime">%1$d min.</string>
 	<string name="votes">%1$d votes</string>
+	<string name="retry">Reintentar</string>
+	<string name="an_error_happened">An error happened: %1$s</string>
 	<string name="movie_trailer">Video that shows a brief summary of what the movie will be.</string>
 </resources>

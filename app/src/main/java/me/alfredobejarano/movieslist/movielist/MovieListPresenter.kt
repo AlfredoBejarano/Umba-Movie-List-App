@@ -7,8 +7,17 @@ import me.alfredobejarano.movieslist.utils.resultLiveData
 import javax.inject.Inject
 
 class MovieListPresenter @Inject constructor(private val getListUseCase: GetMovieListUseCase) :
-    BasePresenter {
+    BasePresenter() {
 
+    /**
+     * Retrieves a List of Movies filtered by the given type.
+     *
+     * @param type - The type of movies to fetch
+     *
+     * @see MovieListType.MOVIE_LIST_POPULAR
+     * @see MovieListType.MOVIE_LIST_UPCOMING
+     * @see MovieListType.MOVIE_LIST_TOP_RATED
+     */
     fun getMovieList(type: MovieListType) = resultLiveData {
         getListUseCase.getMovieList(type)
     }

@@ -19,24 +19,50 @@ class NavHostActivity : AppCompatActivity(), SearchUiHandlerOwner {
         navController = findNavController(R.id.navHostFragment)
     }
 
+    /**
+     * Detects if the search UI is being shown, if so, proceeds to close it. If not,
+     * fallbacks to the normal back press behaviour.
+     */
     override fun onBackPressed() = if (isSearchUiShowing) {
         searchUiHandler?.onBackPress() ?: Unit
     } else {
         super.onBackPressed()
     }
 
+    /**
+     * Sets the listener for the search view states.
+     */
     override fun setListener(listener: SearchUiHandler?) {
         searchUiHandler = listener
     }
 
+    /**
+     * Proceeds to hide the search view when the user selects a Movie result.
+     */
     override fun onSearchUiNavigation() {
         isSearchUiShowing = false
         searchUiHandler?.onBackPress()
     }
+
+    /**
+     * Tells to the view that report movie query text that the Movie results view is ready
+     * to accept query values.
+     */
     override fun onSearchUiReady() = searchUiHandler?.onSearchUiReady() ?: Unit
 
+    /**
+     * Interface that provides events related to the search view UI states.
+     */
     interface SearchUiHandler {
+        /**
+         * Triggered when a [SearchUiHandlerOwner] performs some kind of up navigation.
+         */
         fun onBackPress()
+
+        /**
+         * Triggered when the [SearchUiHandlerOwner] detects that the search view is ready to
+         * accept queries.
+         */
         fun onSearchUiReady()
     }
 }

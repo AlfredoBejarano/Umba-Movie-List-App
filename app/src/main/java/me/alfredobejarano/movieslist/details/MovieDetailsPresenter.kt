@@ -6,7 +6,7 @@ import me.alfredobejarano.movieslist.utils.resultLiveData
 import javax.inject.Inject
 
 class MovieDetailsPresenter @Inject constructor(private val movieDetailsUseCase: GetMovieDetailsUseCase) :
-    BasePresenter {
+    BasePresenter() {
 
     /**
      * Retrieves the details of a movie using its Id.

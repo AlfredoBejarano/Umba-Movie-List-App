@@ -13,6 +13,9 @@ import me.alfredobejarano.movieslist.utils.SearchUiHandlerOwner
 import me.alfredobejarano.movieslist.utils.observeWith
 import me.alfredobejarano.movieslist.utils.openMovieDetails
 
+/**
+ * Fragment class that will show to the user the result of a given movie query.
+ */
 class MovieSearchFragment : BaseFragment<MovieSearchPresenter>(),
     MovieListFragment.OnQueryChangeListener {
     companion object {
@@ -21,6 +24,9 @@ class MovieSearchFragment : BaseFragment<MovieSearchPresenter>(),
 
     private lateinit var searchListRecyclerView: RecyclerView
 
+    /**
+     * Creates the [RecyclerView] that will show the movie search results.
+     */
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -32,12 +38,20 @@ class MovieSearchFragment : BaseFragment<MovieSearchPresenter>(),
         (requireActivity() as? SearchUiHandlerOwner)?.onSearchUiReady()
     }
 
+    /**
+     * Searches for a Movies in which their titles matches the query.
+     * @param query Text to match against any movies title.
+     */
     private fun searchMovie(query: String) = presenter.searchMovieByTitle(query).observeWith(
         owner = viewLifecycleOwner,
         onSuccess = ::renderMovieSearchResult,
-        onError = {}
+        onError = { showError(this) { onQueryChanged(query) } }
     )
 
+    /**
+     * Displays the found Movies into the [searchListRecyclerView][RecyclerView widget].
+     * @param list The results that came from the movie search.
+     */
     private fun renderMovieSearchResult(list: List<Movie>) =
         searchListRecyclerView.adapter?.let { adapter ->
             (adapter as MovieSearchResultsListAdapter).updateList(list)
@@ -49,5 +63,15 @@ class MovieSearchFragment : BaseFragment<MovieSearchPresenter>(),
                 }
         }
 
-    override fun onQueryChanged(query: String) = searchMovie(query)
+    /**
+     * Triggered when a search bar provides a query text, proceeds to search for movies using the
+     * query text to find potential matches form the movies title.
+     *
+     * @param query The text to use for matching.
+     *
+     * @see searchMovie
+     */
+    override fun onQueryChanged(query: String) {
+        searchMovie(query)
+    }
 }

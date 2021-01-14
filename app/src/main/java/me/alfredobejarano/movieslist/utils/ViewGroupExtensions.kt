@@ -4,8 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 
 /**
- * Created by alfredo on 2019-08-02.
+ * Provides quick access to a [LayoutInflater] from a [ViewGroup] object.
  */
-
 val ViewGroup.layoutInflater: LayoutInflater
     get() = LayoutInflater.from(context)

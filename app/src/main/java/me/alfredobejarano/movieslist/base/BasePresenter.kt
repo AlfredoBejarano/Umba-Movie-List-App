@@ -11,17 +11,24 @@ import androidx.lifecycle.OnLifecycleEvent
  *
  * The view will be passed using Architecture component's [LifecycleOwner] interface.
  */
-interface BasePresenter : LifecycleObserver {
+abstract class BasePresenter : LifecycleObserver {
+    private var owner: LifecycleOwner? = null
+
     /**
      * Attaches the give [LifecycleOwner] to this Presenter class.
      */
     fun onCreate(owner: LifecycleOwner) {
-        owner.lifecycle.addObserver(this)
+        this.owner = owner
+        this.owner?.lifecycle?.addObserver(this)
+
     }
 
     /**
      * Function called when the [LifecycleOwner] gets destroyed.
      */
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
-    fun onDestroy() = Unit
+    fun onDestroy() {
+        owner?.lifecycle?.removeObserver(this)
+        owner = null
+    }
 }
